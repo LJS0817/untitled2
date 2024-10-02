@@ -15,6 +15,10 @@ class DataCard extends StatelessWidget {
     data.init(title, sub, cost, path, iconIdx);
   }
 
+  DataCard.WithDataFrame({required DataFrame d, super.key}) {
+    data = d;
+  }
+
   @override
   Widget build(BuildContext context) {
     InfoMng info = Provider.of<InfoMng>(context);

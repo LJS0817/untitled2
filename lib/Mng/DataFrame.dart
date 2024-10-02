@@ -15,8 +15,8 @@ class DataFrame with ChangeNotifier {
     _iconIndex = iconIdx;
   }
 
-  String getTitle() { return _title; }
-  String getSubTitle() { return _subTitle; }
+  String getTitle() { return (_title == "" ? "이름 없음" : _title); }
+  String getSubTitle() { return (_subTitle == "" ? "설명 없음" : _subTitle); }
   int getCost() { return _cost; }
   String getIconPath() { return _iconPath; }
   int getIconIndex() { return _iconIndex; }

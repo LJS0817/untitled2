@@ -42,6 +42,12 @@ class CustomTextField extends StatelessWidget {
               onTap: () {
                 log("message");
               },
+              onSubmitted: (str) {
+
+              },
+              onEditingComplete: () {
+
+              },
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(4),
                 isDense: true,

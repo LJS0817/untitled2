@@ -13,6 +13,7 @@ dependencies:
   provider:
   intl:
   flutter_svg:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
@@ -33,3 +34,5 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/icons/category/
+    - assets/icons/category/transfer/
