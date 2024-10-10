@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled2/AddScreen/AddScreen.dart';
 import 'package:untitled2/MainScreen/MainScreen.dart';
 import 'package:untitled2/MenuScreen/MenuScreen.dart';
+import 'package:untitled2/Mng/AppMng.dart';
 import 'package:untitled2/Mng/DataMng.dart';
 import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:provider/provider.dart';
@@ -18,14 +19,15 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => InfoMng()),
         ChangeNotifierProvider(create: (_) => DataMng()),
+        ChangeNotifierProvider(create: (_) => AppMng()),
       ],
       child: MaterialApp(
         title: "test",
         theme: ThemeData(fontFamily: 'text'),
         routes: {
-          '/index' : (context) => MainScreen(),
-          '/menu' : (context) => MenuScreen(),
-          '/menu/add' : (context) => AddScreen(),
+          '/index' : (_) => MainScreen(),
+          '/menu' : (_) => MenuScreen(),
+          '/menu/add' : (_) => AddScreen(),
         },
         initialRoute: '/index',
       ),

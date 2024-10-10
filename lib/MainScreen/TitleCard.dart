@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:untitled2/Mng/IconPath.dart';
 import 'package:untitled2/ThemeColor.dart';
 
 class TitleCard extends StatelessWidget {
@@ -87,7 +88,7 @@ class TitleCard extends StatelessWidget {
               width: 25,
               height: 25,
               child: SvgPicture.asset(
-                "assets/icons/edit.svg",
+                IconPath.getPath(ICON.E_MENU_EDIT),
                 color: Colors.white,
               ),
             )

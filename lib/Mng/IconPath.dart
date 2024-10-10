@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 enum ICON {
   E_COMPUTER_KEYBOARD,
   E_COMPUTER_MONITOR,
@@ -59,6 +61,7 @@ class IconPath {
     "hobby/baseball.svg",
     "hobby/basketball.svg",
     "hobby/bawling.svg",
+    "hobby/football.svg",
     "hobby/knitting.svg",
     "hobby/shopping.svg",
     "hobby/tennis.svg",
@@ -80,13 +83,13 @@ class IconPath {
     "hotel.svg",
     "note.svg",
 
-    "menu/add.svg",
-    "menu/card.svg",
-    "menu/config.svg",
-    "menu/delete.svg",
-    "menu/edit.svg",
-    "menu/list.svg",
-    "menu/save.svg",
+    "add.svg",
+    "card.svg",
+    "config.svg",
+    "delete.svg",
+    "edit.svg",
+    "list.svg",
+    "save.svg",
   ];
   static String getPath(ICON t) {
     return _header + ((t.index < ICON.E_MENU_ADD.index) ? _addHeader : _menuHeader) + _path[t.index];

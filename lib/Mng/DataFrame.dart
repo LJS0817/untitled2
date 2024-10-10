@@ -7,6 +7,18 @@ class DataFrame with ChangeNotifier {
   String _iconPath = "";
   int _iconIndex = 0;
 
+  DataFrame() {
+
+  }
+
+  DataFrame.init(String t, String s, int c, String i, int iconIdx) {
+    _title = t;
+    _subTitle = s;
+    _cost = c;
+    _iconPath = i;
+    _iconIndex = iconIdx;
+  }
+
   void init(String t, String s, int c, String i, int iconIdx) {
     _title = t;
     _subTitle = s;
@@ -26,4 +38,10 @@ class DataFrame with ChangeNotifier {
   void setCost(int i) { _cost = i; }
   void setIconPath(String str) { _iconPath = str; }
   void setIconIndex(int i) { _iconIndex = i; }
+
+  @override
+  String toString() {
+    return "${_title}=+=${_subTitle}=+=${_cost}=+=${_iconPath}=+=${_iconIndex}";
+  }
+
 }

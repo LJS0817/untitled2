@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:untitled2/Mng/IconPath.dart';
 import 'package:untitled2/ThemeColor.dart';
 
 class CircleButton extends StatelessWidget {
@@ -33,7 +34,7 @@ class CircleButton extends StatelessWidget {
                 width: 17,
                 height: 17,
                 child: SvgPicture.asset(
-                  "assets/icons/add.svg",
+                  IconPath.getPath(ICON.E_MENU_ADD),
                   color: Colors.white,
                 ),
               ),

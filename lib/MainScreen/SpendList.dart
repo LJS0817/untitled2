@@ -16,7 +16,7 @@ class SpendList extends StatelessWidget {
           children: [
             const BackgroundWidget(),
             const CircleButton(),
-            const UsageListView(),
+            UsageListView(),
           ],
         ),
       ),
