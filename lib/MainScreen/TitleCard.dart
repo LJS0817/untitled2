@@ -48,7 +48,7 @@ class TitleCard extends StatelessWidget {
                 ),
                 const Padding(padding: EdgeInsets.only(bottom: 5)),
                 Container(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

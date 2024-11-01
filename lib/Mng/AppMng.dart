@@ -1,28 +1,77 @@
-import 'dart:convert';
 import 'dart:developer';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled2/Mng/DataFrame.dart';
 
 class AppMng extends ChangeNotifier {
-  // List<DataFrame> data = [DataFrame.init("test", "sug", 100, "assets/icons/menu/list.svg", 0), DataFrame.init("123", "dsaf", 100, "assets/icons/menu/list.svg", 0)];
   List<DataFrame> data = [];
   late SharedPreferences sh;
+  bool hasChanged = true;
+  Map<String, Map<String, String>> info = {
+  };
+  static const Map<String, Map<String, String>> form = {
+    "default" : {
+      "CardName" : "누구 카드",
+      "Money" : "0",
+      "MaxMoney" : "0"
+    },
+    "c" : {
+
+    }
+  };
 
   Future<bool> init() async {
-    sh = await SharedPreferences.getInstance();
-    List<String> str = sh.getString('test').toString().split(", ");
-    for(int i = 0; i < str.length; i++) {
-      if(i == 0 || i == str.length - 1) {
-        str[i] = str[i].replaceAll(i == 0 ? '[' : ']', '');
+    if(hasChanged) {
+      sh = await SharedPreferences.getInstance();
+      if(sh.getString('Info') == null) {
+        info["c"] = {};
+        return false;
+      } else {
+        List<String> str = sh.getString('test').toString().split(", ");
+        for(int i = 0; i < str.length; i++) {
+          if(i == 0 || i == str.length - 1) {
+            str[i] = str[i].replaceAll(i == 0 ? '[' : ']', '');
+          }
+          List<String> item = str[i].split('=+=');
+          data.add(DataFrame.init(item[0], item[1], int.parse(item[2]), item[3], int.parse(item[4])));
+        }
       }
-      List<String> item = str[i].split('=+=');
-      data[i].init(item[0], item[1], int.parse(item[2]), item[3], int.parse(item[4]));
+      hasChanged = false;
     }
-
     return true;
+  }
+
+  void setInfo(String id, String d, {String key="c"}) {
+    if(d.isEmpty) return;
+    if(info[key] == null) info[key] = {};
+    if(id == "카드명") {
+      info[key]?["CardName"] = d;
+    } else if(id == "잔고") {
+      info[key]?["Money"] = d;
+    } else if(id == "예산") {
+      info[key]?["MaxMoney"] = d;
+    } else {
+      info[key]?["ResetDay"] = d;
+    }
+    log(info.toString());
+    notifyListeners();
+  }
+
+  String? getInfo(String id, {String key="c"}) {
+    return info[key]?[id] ?? info["default"]?[id];
+  }
+
+  void sendInfoData(DateTime dt) {
+    if(info['c']!["MaxMoney"] == null || info['c']!["MaxMoney"] == '' ||  info['c']!["MaxMoney"] == '0') {
+      info['c']!["MaxMoney"] = info['default']!['MaxMoney']!;
+    } if(info['c']!["Money"] == null || info['c']!["Money"] == '' ||  info['c']!["Money"] == '0') {
+      info['c']!["Money"] = info['default']!['Money']!;
+    } if(info['c']!["CardName"] == null || info['c']!["CardName"] == '' ||  info['c']!["CardName"] == '0') {
+      info['c']!["CardName"] = info['default']!['CardName']!;
+    }
+    info[dt.toString()] = info['c']!;
+    info['c'] = {};
+    // sh.setString("info", value)
   }
 
   List<DataFrame> getData() {

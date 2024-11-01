@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:untitled2/Mng/IconPath.dart';
 import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:untitled2/ThemeColor.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +8,7 @@ import 'package:provider/provider.dart';
 class SpendItemBox extends StatelessWidget {
   String title = "타이틀";
   String subTitle = "서브타이틀";
-  String iconPath = "assets/icons/list.svg";
+  String iconPath = IconPath.getPath(ICON.E_MENU_LIST);
   int cost = -10000;
 
   Color backgroundColor = Colors.white;
@@ -19,7 +20,7 @@ class SpendItemBox extends StatelessWidget {
 
   SpendItemBox({super.key});
 
-  Widget SpendItemLongTapButton(String iName) {
+  Widget SpendItemLongTapButton(ICON iName) {
     return Expanded(
       child: Container(
         height: 65,
@@ -38,7 +39,7 @@ class SpendItemBox extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(20),
               child: SvgPicture.asset(
-                "assets/icons/${iName}.svg",
+                IconPath.getPath(iName),
                 color: ThemeColor.MainColor,
               ),
             ),
@@ -158,9 +159,9 @@ class SpendItemBox extends StatelessWidget {
               visible: backgroundColor != Colors.white,
               child: Row(
                 children: [
-                  SpendItemLongTapButton("edit"),
+                  SpendItemLongTapButton(ICON.E_MENU_EDIT),
                   const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-                  SpendItemLongTapButton("delete"),
+                  SpendItemLongTapButton(ICON.E_MENU_DELETE),
                 ],
               ),
             ),

@@ -17,28 +17,23 @@ class UsageListView extends StatelessWidget {
       left: 10,
       right: 10,
       bottom: 10,
-      child: FutureBuilder(
-        future: appMng.init(),
-        builder: (cxt, snap) {
-          return ScrollConfiguration(
-            behavior: const ScrollBehavior().copyWith(overscroll: false),
-            child: ListView.builder(
-              itemCount: appMng.getSize(),
-              shrinkWrap: true,
-              itemBuilder: (ctx, index) {
-                return DataCard.WithDataFrame(d: appMng.getDataFrame(index));
-                // return DataCard(
-                //     title: "타이틀",
-                //     sub: "서브타이틀",
-                //     cost: -1000 * index,
-                //     path: IconPath.getPath(ICON.E_APP),
-                //     iconIdx: 0,
-                // );
-              },
-            ),
-          );
-        },
-      )
+      child: ScrollConfiguration(
+        behavior: const ScrollBehavior().copyWith(overscroll: false),
+        child: ListView.builder(
+          itemCount: appMng.getSize(),
+          shrinkWrap: true,
+          itemBuilder: (ctx, index) {
+            return DataCard.WithDataFrame(d: appMng.getDataFrame(index));
+            // return DataCard(
+            //     title: "타이틀",
+            //     sub: "서브타이틀",
+            //     cost: -1000 * index,
+            //     path: IconPath.getPath(ICON.E_APP),
+            //     iconIdx: 0,
+            // );
+          },
+        ),
+      ),
     );
   }
 }
