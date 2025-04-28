@@ -4,6 +4,7 @@ import 'package:untitled2/MainScreen/MainScreen.dart';
 import 'package:untitled2/MenuScreen/MenuScreen.dart';
 import 'package:untitled2/Mng/AppMng.dart';
 import 'package:untitled2/Mng/DataMng.dart';
+import 'package:untitled2/Mng/DatabaseMng.dart';
 import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => InfoMng()),
         ChangeNotifierProvider(create: (_) => DataMng()),
         ChangeNotifierProvider(create: (_) => AppMng()),
+        ChangeNotifierProvider(create: (_) => DatabaseMng()),
       ],
       child: MaterialApp(
         title: "test",

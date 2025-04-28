@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled2/MainScreen/Usage/UsageListView.dart';
 import 'package:untitled2/MainScreen/Usage/BackgroundWidget.dart';
-import 'package:untitled2/ThemeColor.dart';
 import 'package:untitled2/MainScreen/Usage/CircleButton.dart';
 
 class SpendList extends StatelessWidget {
