@@ -23,36 +23,36 @@ class AppMng extends ChangeNotifier {
   };
 
   Future<bool> init() async {
-    if(hasChanged) {
-      sh = await SharedPreferences.getInstance();
-      if(sh.getString('info') == null) {
-        info["c"] = {};
-        return false;
-      } else {
-        // sh.remove('info');
-        String str = sh.getString('info').toString();
-        log(str);
-        Map m = json.decode(str);
-        for(String k in m.keys) {
-          log(k.toString());
-          // info[k] = m[k];
-        }
-
-        // info = m.cast();
-        // log(info.toString());
-        // info = json.decode(sh.getString('info').toString());
-        // log("SADSA" + info.toString());
-        // List<String> str = sh.getString('info').toString().split(", ");
-        // for(int i = 0; i < str.length; i++) {
-        //   if(i == 0 || i == str.length - 1) {
-        //     str[i] = str[i].replaceAll(i == 0 ? '[' : ']', '');
-        //   }
-        //   List<String> item = str[i].split('=+=');
-        //   data.add(DataFrame.init(item[0], item[1], int.parse(item[2]), item[3], int.parse(item[4])));
-        // }
-      }
-      hasChanged = false;
-    }
+    // if(hasChanged) {
+    //   sh = await SharedPreferences.getInstance();
+    //   if(sh.getString('info') == null) {
+    //     info["c"] = {};
+    //     return false;
+    //   } else {
+    //     // sh.remove('info');
+    //     String str = sh.getString('info').toString();
+    //     log(str);
+    //     Map m = json.decode(str);
+    //     for(String k in m.keys) {
+    //       log(k.toString());
+    //       // info[k] = m[k];
+    //     }
+    //
+    //     // info = m.cast();
+    //     // log(info.toString());
+    //     // info = json.decode(sh.getString('info').toString());
+    //     // log("SADSA" + info.toString());
+    //     // List<String> str = sh.getString('info').toString().split(", ");
+    //     // for(int i = 0; i < str.length; i++) {
+    //     //   if(i == 0 || i == str.length - 1) {
+    //     //     str[i] = str[i].replaceAll(i == 0 ? '[' : ']', '');
+    //     //   }
+    //     //   List<String> item = str[i].split('=+=');
+    //     //   data.add(DataFrame.init(item[0], item[1], int.parse(item[2]), item[3], int.parse(item[4])));
+    //     // }
+    //   }
+    //   hasChanged = false;
+    // }
     return true;
   }
 

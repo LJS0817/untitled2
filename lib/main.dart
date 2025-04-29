@@ -9,19 +9,33 @@ import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  MyApp({super.key});
+
+  late DatabaseMng db;
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    widget.db = DatabaseMng();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => InfoMng()),
+        ChangeNotifierProvider(create: (_) => widget.db, lazy: false,),
         ChangeNotifierProvider(create: (_) => DataMng()),
         ChangeNotifierProvider(create: (_) => AppMng()),
-        ChangeNotifierProvider(create: (_) => DatabaseMng()),
+        ChangeNotifierProvider(create: (_) => InfoMng(_), lazy: false,),
       ],
       child: MaterialApp(
         title: "test",
@@ -36,3 +50,31 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+//   // final DatabaseMng db = DatabaseMng();
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MultiProvider(
+//       providers: [
+//         ChangeNotifierProvider(create: (_) => DatabaseMng(), lazy: false,),
+//         ChangeNotifierProvider(create: (_) => DataMng()),
+//         ChangeNotifierProvider(create: (_) => AppMng()),
+//         ChangeNotifierProvider(create: (_) => InfoMng(_), lazy: false,),
+//       ],
+//       child: MaterialApp(
+//         title: "test",
+//         theme: ThemeData(fontFamily: 'text'),
+//         routes: {
+//           '/index' : (_) => MainScreen(),
+//           '/menu' : (_) => MenuScreen(),
+//           '/menu/add' : (_) => AddScreen(),
+//         },
+//         initialRoute: '/index',
+//       ),
+//     );
+//   }
+// }

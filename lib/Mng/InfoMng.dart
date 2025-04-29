@@ -2,14 +2,18 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled2/Mng/DatabaseMng.dart';
 
 class InfoMng with ChangeNotifier {
   int _money = 0;
   int _maxMoney = 0;
 
-  InfoMng({int max=0, int cur=0}) {
-    _maxMoney = max;
-    _money = cur;
+  InfoMng(BuildContext cxt, {int max=0, int cur=0}) {
+    DatabaseMng db = cxt.read<DatabaseMng>();
+    // _maxMoney = db.getMaxMoney();
+    // _money = db.getCurMoney();
+    db.getInfo(1);
   }
 
   void setMoney(int m) { _money = m; }

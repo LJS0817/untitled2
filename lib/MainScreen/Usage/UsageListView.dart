@@ -20,17 +20,17 @@ class UsageListView extends StatelessWidget {
       child: ScrollConfiguration(
         behavior: const ScrollBehavior().copyWith(overscroll: false),
         child: ListView.builder(
-          itemCount: appMng.getSize(),
+          itemCount: 10,
           shrinkWrap: true,
           itemBuilder: (ctx, index) {
-            return DataCard.WithDataFrame(d: appMng.getDataFrame(index));
-            // return DataCard(
-            //     title: "타이틀",
-            //     sub: "서브타이틀",
-            //     cost: -1000 * index,
-            //     path: IconPath.getPath(ICON.E_APP),
-            //     iconIdx: 0,
-            // );
+            // return DataCard.WithDataFrame(d: appMng.getDataFrame(index));
+            return DataCard(
+                title: "타이틀",
+                sub: "서브타이틀",
+                cost: -1000 * index,
+                path: IconPath.getPath(ICON.E_APP),
+                iconIdx: 0,
+            );
           },
         ),
       ),
