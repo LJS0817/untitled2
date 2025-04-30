@@ -26,6 +26,10 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     widget.db = DatabaseMng();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      widget.db.init();
+    });
+    print("TEST1234");
   }
 
   @override

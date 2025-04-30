@@ -14,7 +14,7 @@ class DatabaseMng with ChangeNotifier {
   final String _customTable = 'custom';
 
   DatabaseMng() {
-    init();
+    // init();
   }
 
   _onCreate(Database db, int version) async {
@@ -33,6 +33,7 @@ class DatabaseMng with ChangeNotifier {
   }
 
   Future<List<int>> getInfo(int id) async {
+    init();
     List<int> rst = [];
     List<Map<String, Object?>>? data = [];
     data = await db?.query(_cardTable, columns: ["name", "usage", "maxMoney"], where: 'id', whereArgs: [id]);
@@ -40,7 +41,8 @@ class DatabaseMng with ChangeNotifier {
     return rst;
   }
 
-  Future<void> init() async {
+  void init() async {
+    if(db != null) return;
     db = await openDatabase(_dbName, version: 1, onCreate: _onCreate, onOpen: _onOpen);
     log("TEST");
     // await db!.insert(_cardTable, {'name' : '테스트 카드', 'usage' : 100000, 'maxMoney' : 300000});

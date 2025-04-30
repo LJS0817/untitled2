@@ -13,7 +13,7 @@ class InfoMng with ChangeNotifier {
     DatabaseMng db = cxt.read<DatabaseMng>();
     // _maxMoney = db.getMaxMoney();
     // _money = db.getCurMoney();
-    db.getInfo(1);
+    print(db.getInfo(1));
   }
 
   void setMoney(int m) { _money = m; }
