@@ -7,7 +7,6 @@ import 'package:untitled2/AddScreen/CustomTextField.dart';
 import 'package:untitled2/AddScreen/DismissBackgroundContainer.dart';
 import 'package:untitled2/MainScreen/DataCard.dart';
 import 'package:untitled2/MenuScreen/CustomNavigationBar.dart';
-import 'package:untitled2/Mng/AppMng.dart';
 import 'package:untitled2/Mng/DataMng.dart';
 import 'package:untitled2/Mng/IconPath.dart';
 import 'package:untitled2/StartWidget.dart';
@@ -24,7 +23,6 @@ class AddScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DataMng dataMng = Provider.of<DataMng>(context);
-    AppMng appMng = Provider.of<AppMng>(context);
 
     return StartWidget(
       child: ScrollConfiguration(
@@ -56,7 +54,7 @@ class AddScreen extends StatelessWidget {
                   dismissThresholds: const { DismissDirection.startToEnd : 0.7, DismissDirection.endToStart : 0.7 },
                   onDismissed: (DismissDirection dir) {
                     if(dir.index == 2) {  //right
-                      appMng.addData(dataMng.getData());
+                      // appMng.addData(dataMng.getData());
                       Navigator.of(context)..pop()..pop();
                     } else if(dir.index == 3) { //left
                       Navigator.of(context).pop();

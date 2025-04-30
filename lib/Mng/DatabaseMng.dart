@@ -32,20 +32,21 @@ class DatabaseMng with ChangeNotifier {
 
   }
 
-  Future<List<int>> getInfo(int id) async {
-    init();
-    List<int> rst = [];
+  Future<List<Map<String, Object?>>> getInfo({int id = -1}) async {
+    await init();
     List<Map<String, Object?>>? data = [];
-    data = await db?.query(_cardTable, columns: ["name", "usage", "maxMoney"], where: 'id', whereArgs: [id]);
-    print(data);
-    return rst;
+    String query = "SELECT * FROM ${_cardTable}";
+    if(id > -1) query += "WHERE id = ${id}";
+    data = await db!.rawQuery(query);
+    // data = await db?.query(_cardTable, columns: ["name", "usage", "maxMoney", "id"], where: 'id', whereArgs: [id]);
+    return data;
   }
 
-  void init() async {
+  Future<void> init() async {
     if(db != null) return;
     db = await openDatabase(_dbName, version: 1, onCreate: _onCreate, onOpen: _onOpen);
-    log("TEST");
     // await db!.insert(_cardTable, {'name' : '테스트 카드', 'usage' : 100000, 'maxMoney' : 300000});
+    log("TEST");
     // log((await db!.query("sqlite_master")).map((row) => row['name'].toString()).toList(growable: false).toString());
   }
 }

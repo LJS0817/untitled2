@@ -4,6 +4,7 @@ class DataFrame with ChangeNotifier {
   String _title = "";
   String _subTitle = "";
   int _cost = 0;
+  int _remain = 0;
   String _iconPath = "";
   int _iconIndex = 0;
 
@@ -15,6 +16,7 @@ class DataFrame with ChangeNotifier {
     _title = t;
     _subTitle = s;
     _cost = c;
+    _remain = 0;
     _iconPath = i;
     _iconIndex = iconIdx;
   }
@@ -23,6 +25,7 @@ class DataFrame with ChangeNotifier {
     _title = t;
     _subTitle = s;
     _cost = c;
+    _remain = 0;
     _iconPath = i;
     _iconIndex = iconIdx;
   }
@@ -30,6 +33,7 @@ class DataFrame with ChangeNotifier {
   String getTitle() { return (_title == "" ? "이름 없음" : _title); }
   String getSubTitle() { return (_subTitle == "" ? "설명 없음" : _subTitle); }
   int getCost() { return _cost; }
+  int getRemain() { return _remain; }
   String getIconPath() { return _iconPath; }
   int getIconIndex() { return _iconIndex; }
 
@@ -43,5 +47,4 @@ class DataFrame with ChangeNotifier {
   String toString() {
     return "${_title}=+=${_subTitle}=+=${_cost}=+=${_iconPath}=+=${_iconIndex}";
   }
-
 }

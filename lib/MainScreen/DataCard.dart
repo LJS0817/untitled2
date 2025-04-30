@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:untitled2/Mng/DataFrame.dart';
+import 'package:untitled2/Dataframes/DataFrame.dart';
 import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:untitled2/ThemeColor.dart';
 import 'package:provider/provider.dart';
+
+import '../Utils/ConvertValue.dart';
 
 class DataCard extends StatelessWidget {
   late DataFrame data;
@@ -84,7 +86,7 @@ class DataCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  info.costToString(data.getCost()),
+                  ConvertValue.costToString(data.getCost()),
                   style: const TextStyle(
                     color: ThemeColor.MainColor,
                     fontWeight: FontWeight.bold,
@@ -92,7 +94,7 @@ class DataCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "잔액. ${info.moneyToString()}",
+                  "잔액. ${data.getRemain()}",
                   style: const TextStyle(
                     height: 0.9,
                     color: ThemeColor.TextColorGrey,

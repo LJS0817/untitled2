@@ -1,40 +1,34 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled2/Mng/DatabaseMng.dart';
 
+import '../Dataframes//InfoDataframe.dart';
+
 class InfoMng with ChangeNotifier {
-  int _money = 0;
-  int _maxMoney = 0;
+  List<InfoDataframe> _info = [];
+  int _curIndex = 0;
 
   InfoMng(BuildContext cxt, {int max=0, int cur=0}) {
     DatabaseMng db = cxt.read<DatabaseMng>();
     // _maxMoney = db.getMaxMoney();
     // _money = db.getCurMoney();
-    print(db.getInfo(1));
+    loadData(db);
   }
 
-  void setMoney(int m) { _money = m; }
-  int getMoney() { return _money; }
-
-  void setMax(int m) { _maxMoney = m; }
-  int getMax() { return _maxMoney; }
-
-  String costToString(int m) {
-    if(m < 0) {
-      return '-${NumberFormat('###,###').format(m * -1)}';
+  void loadData(DatabaseMng db) async {
+    List<Map<String, Object?>> data = await db.getInfo();
+    print(data);
+    for(int i = 0; i < data.length; i++) {
+      _info.add(InfoDataframe(data[i]));
     }
-    return NumberFormat('###,###').format(m);
   }
 
-  String maxToString() {
-    return costToString(getMax());
+  InfoDataframe getCurrentData() {
+    return _info[_curIndex];
   }
 
-  String moneyToString() {
-    return costToString(getMoney());
+  Map<String, Object?> readCurrentData() {
+    return getCurrentData().getList();
   }
 
   void changeState() {

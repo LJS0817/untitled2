@@ -1,17 +1,14 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled2/MainScreen/DataCard.dart';
-import 'package:untitled2/Mng/AppMng.dart';
 import 'package:untitled2/Mng/IconPath.dart';
 
 class UsageListView extends StatelessWidget {
+
   const UsageListView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    AppMng appMng = Provider.of<AppMng>(context, listen: false);
     return Positioned(
       top: 75,
       left: 10,
@@ -23,13 +20,12 @@ class UsageListView extends StatelessWidget {
           itemCount: 10,
           shrinkWrap: true,
           itemBuilder: (ctx, index) {
-            // return DataCard.WithDataFrame(d: appMng.getDataFrame(index));
             return DataCard(
-                title: "타이틀",
-                sub: "서브타이틀",
-                cost: -1000 * index,
-                path: IconPath.getPath(ICON.E_APP),
-                iconIdx: 0,
+              title: "타이틀",
+              sub: "서브타이틀",
+              cost: -1000 * index,
+              path: IconPath.getPath(ICON.E_APP),
+              iconIdx: 0,
             );
           },
         ),

@@ -7,14 +7,11 @@ import 'package:untitled2/MainScreen/CreateCard/SimpleCard.dart';
 import 'package:untitled2/MainScreen/TitleCard.dart';
 import 'package:untitled2/ThemeColor.dart';
 
-import '../../Mng/AppMng.dart';
-
 class CreateCard extends StatelessWidget {
   const CreateCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    AppMng appMng = Provider.of<AppMng>(context, listen: false);
     return ScrollConfiguration(
       behavior: const ScrollBehavior().copyWith(overscroll: false),
       child: ListView(
@@ -48,7 +45,7 @@ class CreateCard extends StatelessWidget {
                     splashColor: ThemeColor.MainColor.withOpacity(0.4),
                     borderRadius: BorderRadius.circular(12),
                     onTap: () {
-                      appMng.setInfo("잔고", appMng.getInfo("MaxMoney")!);
+                      // appMng.setInfo("잔고", appMng.getInfo("MaxMoney")!);
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
@@ -74,7 +71,7 @@ class CreateCard extends StatelessWidget {
                     splashColor: Colors.white.withOpacity(0.4),
                     borderRadius: BorderRadius.circular(12),
                     onTap: () {
-                      appMng.sendInfoData(DateTime.now());
+                      // appMng.sendInfoData(DateTime.now());
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),

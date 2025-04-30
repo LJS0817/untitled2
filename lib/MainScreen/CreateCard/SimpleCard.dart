@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled2/Mng/AppMng.dart';
+import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:untitled2/ThemeColor.dart';
 
 class SimpleCard extends StatelessWidget {
@@ -8,7 +8,7 @@ class SimpleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppMng appMng = Provider.of<AppMng>(context);
+    InfoMng info = Provider.of<InfoMng>(context);
     return Container(
       height: 150,
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
@@ -31,7 +31,7 @@ class SimpleCard extends StatelessWidget {
             top: 15,
             left: 20,
             child: Text(
-              appMng.getInfo("CardName")!,
+              info.getCurrentData().getName(),
               style: const TextStyle(
                 color: ThemeColor.TextColorGrey,
                 fontSize: 15,
@@ -54,7 +54,7 @@ class SimpleCard extends StatelessWidget {
             bottom: 50,
             left: 20,
             child: Text(
-              appMng.getInfo("Money")!,
+              info.getCurrentData().getMoney().toString(),
               style: TextStyle(
                 color: ThemeColor.MainColor,
                 fontSize: 25,
@@ -66,7 +66,7 @@ class SimpleCard extends StatelessWidget {
             bottom: 10,
             right: 20,
             child: Text(
-              '예산 : ${appMng.getInfo("MaxMoney")!}',
+              '예산 : ${info.getCurrentData().getMax()}',
               textDirection: TextDirection.rtl,
               style: TextStyle(
                 color: ThemeColor.MainColor.withOpacity(0.4),

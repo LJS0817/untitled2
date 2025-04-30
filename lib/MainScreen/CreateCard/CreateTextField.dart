@@ -5,8 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled2/ThemeColor.dart';
-
-import '../../Mng/AppMng.dart';
+import 'package:untitled2/Utils/ConvertValue.dart';
 
 class CreateTextField extends StatelessWidget {
   String _title = "";
@@ -24,14 +23,13 @@ class CreateTextField extends StatelessWidget {
   String getData() {
     String str = _controller.text.toString();
     if(_controller.text.isNotEmpty && _title != "카드명") {
-      _controller.text = NumberFormat('###,###').format(int.parse(str.replaceAll(',', '')));
+      _controller.text = ConvertValue.costToString(int.parse(str.replaceAll(',', '')));
     }
     return str;
   }
 
   @override
   Widget build(BuildContext context) {
-    AppMng appMng = Provider.of<AppMng>(context, listen: false);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
       child: Column(
@@ -44,12 +42,12 @@ class CreateTextField extends StatelessWidget {
             onTapOutside: (e) {
               if(FocusManager.instance.primaryFocus?.parent != null) {
                 if(_focus == FocusManager.instance.primaryFocus) {
-                  appMng.setInfo(_title, getData());
+                  // appMng.setInfo(_title, getData());
                 }
               }
             },
             onEditingComplete: () {
-              appMng.setInfo(_title, getData());
+              // appMng.setInfo(_title, getData());
               FocusManager.instance.primaryFocus?.unfocus();
             },
             onSubmitted: (str) {

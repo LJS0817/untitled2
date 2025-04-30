@@ -5,6 +5,8 @@ import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:untitled2/ThemeColor.dart';
 import 'package:provider/provider.dart';
 
+import '../Utils/ConvertValue.dart';
+
 class SpendItemBox extends StatelessWidget {
   String title = "타이틀";
   String subTitle = "서브타이틀";
@@ -106,7 +108,7 @@ class SpendItemBox extends StatelessWidget {
                   bottom: 0,
                   right: 0,
                   child: Text(
-                    info.costToString(cost),
+                    ConvertValue.costToString(cost),
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
