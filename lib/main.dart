@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled2/AddScreen/AddScreen.dart';
 import 'package:untitled2/MainScreen/MainScreen.dart';
 import 'package:untitled2/MenuScreen/MenuScreen.dart';
+import 'package:untitled2/Mng/CreateInfoProvider.dart';
 import 'package:untitled2/Mng/DataMng.dart';
 import 'package:untitled2/Mng/DatabaseMng.dart';
 import 'package:untitled2/Mng/InfoMng.dart';
@@ -20,8 +21,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => DatabaseMng(), lazy: false,),
-        ChangeNotifierProvider(create: (_) => DataMng()),
-        ChangeNotifierProvider(create: (_) => InfoMng(_), lazy: false,),
+        ChangeNotifierProvider(create: (_) => CreateInfoProvider(), lazy: false,),
+        ChangeNotifierProvider(create: (_) => InfoMng(), lazy: false,),
       ],
       child: MaterialApp(
         title: "test",

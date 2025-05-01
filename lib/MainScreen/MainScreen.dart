@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled2/Dataframes/InfoDataframe.dart';
 import 'package:untitled2/MainScreen/CreateCard/CreateCard.dart';
 import 'package:untitled2/MainScreen/SpendList.dart';
 import 'package:untitled2/Mng/DatabaseMng.dart';
@@ -15,20 +14,49 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StartWidget(
-      child: Selector<InfoMng, InfoDataframe>(
-        selector: (context, info) => info.getCurrentData(),
-        builder: (context, data, child) {
-          return Container(
-            color: Colors.white,
-            child: Column(
-              children: [
-                TitleCard(data),
-                SpendList(),
-              ],
-            ),
-          );
-        },
-      ),
+        child: FutureBuilder(
+          future: context.read<InfoMng>().loadData(context),
+          builder: (cxt, snap) {
+            if(snap.hasData) {
+              log("TEST    +   " + snap.data!.toMap().toString());
+              return Container(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    TitleCard(snap.data),
+                    SpendList(),
+                  ],
+                ),
+              );
+            } else {
+              return GestureDetector(
+                onTap: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  log("OUT");
+                },
+                child: Container(
+                  color: Colors.white,
+                  height: double.maxFinite,
+                  child: CreateCard(),
+                ),
+              );
+            }
+          },
+        )
+      // child: Selector<InfoMng, InfoDataframe>(
+      //   selector: (context, info) => info.getCurrentData(),
+      //   builder: (context, data, child) {
+      //     return Container(
+      //       color: Colors.white,
+      //       child: Column(
+      //         children: [
+      //           TitleCard(data),
+      //           SpendList(),
+      //         ],
+      //       ),
+      //     );
+      //   },
+      // ),
       // child: FutureBuilder(
       //   future: context.read<InfoMng>().readCurrentData(),
       //   builder: (cxt, snap) {

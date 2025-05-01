@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled2/MainScreen/DataCard.dart';
 import 'package:untitled2/Mng/IconPath.dart';
+import 'package:untitled2/Mng/InfoMng.dart';
 
 class UsageListView extends StatelessWidget {
 
@@ -17,7 +18,7 @@ class UsageListView extends StatelessWidget {
       child: ScrollConfiguration(
         behavior: const ScrollBehavior().copyWith(overscroll: false),
         child: ListView.builder(
-          itemCount: 10,
+          itemCount: context.read<InfoMng>().getCurrentData().list.length,
           shrinkWrap: true,
           itemBuilder: (ctx, index) {
             return DataCard(

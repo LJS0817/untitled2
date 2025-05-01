@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled2/Mng/CreateInfoProvider.dart';
 import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:untitled2/ThemeColor.dart';
+import 'package:untitled2/Utils/ConvertValue.dart';
 
 class SimpleCard extends StatelessWidget {
   const SimpleCard({super.key});
 
+  Widget getDate(String sKey, Color? color, double? size, FontWeight? w, {String str=""}) {
+    return Selector<CreateInfoProvider, String>(
+      selector: (cxt, info) => info.getInfo(sKey),
+      builder: (cxt, val, c) {
+        return Text(
+          str + (sKey != "name" ? ConvertValue.costToString(int.parse(val)).toString() : val),
+          style: TextStyle(
+            color: color,
+            fontSize: size,
+            fontWeight: w
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    InfoMng info = Provider.of<InfoMng>(context);
     return Container(
       height: 150,
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
@@ -30,13 +47,7 @@ class SimpleCard extends StatelessWidget {
           Positioned(
             top: 15,
             left: 20,
-            child: Text(
-              info.getCurrentData().getName(),
-              style: const TextStyle(
-                color: ThemeColor.TextColorGrey,
-                fontSize: 15,
-              ),
-            ),
+            child: getDate("name", ThemeColor.TextColorGrey, 15, FontWeight.normal)
           ),
           Positioned(
             bottom: 85,
@@ -53,27 +64,12 @@ class SimpleCard extends StatelessWidget {
           Positioned(
             bottom: 50,
             left: 20,
-            child: Text(
-              info.getCurrentData().getMoney().toString(),
-              style: TextStyle(
-                color: ThemeColor.MainColor,
-                fontSize: 25,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: getDate("current", ThemeColor.MainColor, 25, FontWeight.w600)
           ),
           Positioned(
             bottom: 10,
             right: 20,
-            child: Text(
-              '예산 : ${info.getCurrentData().getMax()}',
-              textDirection: TextDirection.rtl,
-              style: TextStyle(
-                color: ThemeColor.MainColor.withOpacity(0.4),
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: getDate("budget", ThemeColor.MainColor.withOpacity(0.4), 15, FontWeight.w600, str: "예산 : ")
           ),
         ],
       )

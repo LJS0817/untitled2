@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 class DataFrame with ChangeNotifier {
+  int _id = 0;
+  String _date = "";
+  int _cardID = 0;
+
   String _title = "";
   String _subTitle = "";
   int _cost = 0;
@@ -8,26 +12,17 @@ class DataFrame with ChangeNotifier {
   String _iconPath = "";
   int _iconIndex = 0;
 
-  DataFrame() {
+  DataFrame() {  }
 
-  }
-
-  DataFrame.init(String t, String s, int c, String i, int iconIdx) {
-    _title = t;
-    _subTitle = s;
-    _cost = c;
-    _remain = 0;
-    _iconPath = i;
-    _iconIndex = iconIdx;
-  }
-
-  void init(String t, String s, int c, String i, int iconIdx) {
-    _title = t;
-    _subTitle = s;
-    _cost = c;
-    _remain = 0;
-    _iconPath = i;
-    _iconIndex = iconIdx;
+  void init(Map<String, Object?> data) {
+    _id = int.parse(data["id"].toString());
+    _date = data["date"].toString();
+    _cardID = int.parse(data["cardID"].toString());
+    _title = data["title"].toString();
+    _subTitle = data["sub"].toString();
+    _cost = int.parse(data["price"].toString());
+    _remain = int.parse(data["money"].toString());
+    _iconIndex = int.parse(data['iconIdx'].toString());
   }
 
   String getTitle() { return (_title == "" ? "이름 없음" : _title); }

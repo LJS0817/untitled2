@@ -6,26 +6,32 @@ import 'package:untitled2/ThemeColor.dart';
 
 
 class ResetTimePicker extends StatefulWidget {
-  ResetTimePicker({super.key});
+  ResetTimePicker(String data, Function func, {super.key}) {
+    isMonth = data[0] != '0';
+    index = int.parse(data[1] + data[2]);
+    _callback = func;
+  }
 
   static const List<String> ls = [
     "매주",
     "매달",
   ];
 
-  static const List<String> day = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
-  static List<String> date = List<String>.generate(31, (index) => "${(index + 1).toString()}일");
-
+  late Function _callback;
   bool isMonth = false;
   int index = 0;
+
+  static const List<String> day = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+  static List<String> date = List<String>.generate(31, (index) => "${(index + 1).toString()}일");
 
   @override
   State<ResetTimePicker> createState() => _ResetTimePickerState();
 }
 
 class _ResetTimePickerState extends State<ResetTimePicker> {
-  Widget Picker(List ls, Function func) {
+  Widget Picker(List ls, Function func, int initValue) {
     return CupertinoPicker.builder(
+      scrollController: FixedExtentScrollController(initialItem: initValue),
       itemExtent: 35,
       childCount: ls.length,
       useMagnifier: true,
@@ -88,12 +94,14 @@ class _ResetTimePickerState extends State<ResetTimePicker> {
                       child: Picker(ResetTimePicker.ls, (idx) {
                         setState(() {
                           log(idx.toString());
+                          widget._callback(0, idx != 0 ? 1 : 0);
                           widget.isMonth = idx == 0 ? false : true;
                         });
-                      }),
+                      }, widget.isMonth != 0 ? 1 : 0),
                     ),
                     Expanded(
-                      child: Picker(widget.isMonth ? ResetTimePicker.date : ResetTimePicker.day, (idx) { widget.index = idx; }),
+                      child: Picker(widget.isMonth ? ResetTimePicker.date : ResetTimePicker.day, (idx) {
+                        widget._callback(1, idx); }, widget.index),
                     ),
                   ],
                 ),

@@ -14,7 +14,7 @@ class DataCard extends StatelessWidget {
     required int cost, required String path,
     required int iconIdx, super.key}) {
     data = DataFrame();
-    data.init(title, sub, cost, path, iconIdx);
+    //data.init(title, sub, cost, path, iconIdx);
   }
 
   DataCard.WithDataFrame({required DataFrame d, super.key}) {

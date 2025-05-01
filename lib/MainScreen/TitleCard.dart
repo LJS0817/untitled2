@@ -13,8 +13,8 @@ class TitleCard extends StatelessWidget {
   int money = 100000;
   int total = 300000;
 
-  TitleCard(InfoDataframe data, {super.key}) {
-    money = data.getMoney();
+  TitleCard(InfoDataframe? data, {super.key}) {
+    money = data!.getMoney();
     total = data.getMax();
     title = data.getName();
   }

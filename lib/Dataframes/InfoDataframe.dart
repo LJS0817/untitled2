@@ -7,19 +7,25 @@ class InfoDataframe {
   int _maxMoney = 0;
   int _id = -1;
   bool _pin = false;
+  String _resetDate = "000";
 
-  Map<String, Object?> list = {};
+  List<Map<String, Object?>> list = [];
 
   final int _listOffset = 10;
 
   int _curOffset = 0;
 
-  InfoDataframe(Map<String,Object?> data) {
+  InfoDataframe() {
+
+  }
+
+  InfoDataframe.init(Map<String,Object?> data) {
     _name = data['name'].toString();
-    _money = int.parse(data['usage'].toString());
-    _maxMoney = int.parse(data['maxMoney'].toString());
+    _money = int.parse(data['current'].toString());
+    _maxMoney = int.parse(data['budget'].toString());
     _id = int.parse(data['id'].toString());
-    _pin = !data['pin'].toString().contains('0');
+    _pin = data['pin'].toString().contains("0");
+    _resetDate = data['resetDate'].toString();
     _curOffset = _listOffset;
   }
 
@@ -36,7 +42,10 @@ class InfoDataframe {
 
   void setPin(bool p) { _pin = p; }
 
-  Map<String, Object?> getList() { return list; }
+  void setResetDate(String str) { _resetDate = str; }
+  String getResetDate() { return _resetDate; }
+
+  List<Map<String, Object?>> getList() { return list; }
 
   String maxToString() {
     return ConvertValue.costToString(getMax());
@@ -52,7 +61,8 @@ class InfoDataframe {
       'name' : _name,
       'usage' : _money,
       'maxMoney' : _maxMoney,
-      'pin' : _pin
+      'pin' : _pin,
+      'resetDate' : _resetDate,
     };
   }
 }

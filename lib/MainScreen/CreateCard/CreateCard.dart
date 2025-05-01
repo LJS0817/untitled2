@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,24 +9,40 @@ import 'package:untitled2/MainScreen/CreateCard/SimpleCard.dart';
 import 'package:untitled2/MainScreen/TitleCard.dart';
 import 'package:untitled2/ThemeColor.dart';
 
+import '../../Mng/CreateInfoProvider.dart';
+
 class CreateCard extends StatelessWidget {
-  const CreateCard({super.key});
+  CreateCard({super.key});
+
+  String _resetForm = "000";
 
   @override
   Widget build(BuildContext context) {
+    log("message");
+    CreateInfoProvider infoProvider = Provider.of<CreateInfoProvider>(context);
+    _resetForm = infoProvider.getInfo("resetDate");
     return ScrollConfiguration(
       behavior: const ScrollBehavior().copyWith(overscroll: false),
       child: ListView(
         shrinkWrap: true,
         children: [
           SimpleCard(),
-          ResetTimePicker(),
+          ResetTimePicker(_resetForm, (int idx, int val) => {
+            if(idx == 0) {
+              _resetForm = val.toString() + _resetForm[1] + _resetForm[2]
+              // _resetForm = val;
+            } else if(val > 9) {
+              _resetForm = _resetForm[0] + val.toString()
+            } else {
+              _resetForm = _resetForm[0] + '0' + val.toString()
+            }
+          }),
           const Padding(padding: EdgeInsets.all(10)),
-          CreateTextField(title: "카드명"),
+          CreateTextField(title: "카드명", sKey: "name",),
           const Padding(padding: EdgeInsets.all(10)),
-          CreateTextField(title: "예산", isNumber: true,),
+          CreateTextField(title: "예산", sKey: "budget", isNumber: true,),
           const Padding(padding: EdgeInsets.all(10)),
-          CreateTextField(title: "잔고", isNumber: true,),
+          CreateTextField(title: "잔고", sKey: "current",isNumber: true,),
           const Padding(padding: EdgeInsets.all(10)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,7 +63,7 @@ class CreateCard extends StatelessWidget {
                     splashColor: ThemeColor.MainColor.withOpacity(0.4),
                     borderRadius: BorderRadius.circular(12),
                     onTap: () {
-                      // appMng.setInfo("잔고", appMng.getInfo("MaxMoney")!);
+                      infoProvider.setInfo("current", infoProvider.getInfo("budget"));
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
@@ -71,7 +89,10 @@ class CreateCard extends StatelessWidget {
                     splashColor: Colors.white.withOpacity(0.4),
                     borderRadius: BorderRadius.circular(12),
                     onTap: () {
-                      // appMng.sendInfoData(DateTime.now());
+                      infoProvider.setInfo('resetDate', _resetForm);
+                      log(infoProvider.toString());
+                      infoProvider.saveData(context);
+                      // infoProvider.setInfo("resetDate", );
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),

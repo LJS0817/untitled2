@@ -13,7 +13,7 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DataMng data = Provider.of<DataMng>(context);
+    //DataMng data = Provider.of<DataMng>(context);
     return Container(
       height: 85,
       margin: const EdgeInsets.only(top: 20),

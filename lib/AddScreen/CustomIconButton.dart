@@ -17,7 +17,7 @@ class CustomIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DataMng dataMng = Provider.of<DataMng>(context);
+    //DataMng dataMng = Provider.of<DataMng>(context);
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
       width: 30,
@@ -34,7 +34,7 @@ class CustomIconButton extends StatelessWidget {
           splashColor: ThemeColor.MainColor.withOpacity(0.3),
           onTap: () {
             FocusManager.instance.primaryFocus?.unfocus();
-            dataMng.setIconData(path, index);
+            //dataMng.setIconData(path, index);
           },
           borderRadius: BorderRadius.circular(100),
           child: AnimatedContainer(
