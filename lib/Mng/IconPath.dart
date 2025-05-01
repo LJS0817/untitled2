@@ -60,7 +60,7 @@ class IconPath {
 
     "hobby/baseball.svg",
     "hobby/basketball.svg",
-    "hobby/bawling.svg",
+    "hobby/bowling.svg",
     "hobby/football.svg",
     "hobby/knitting.svg",
     "hobby/shopping.svg",

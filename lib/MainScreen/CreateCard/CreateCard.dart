@@ -9,7 +9,7 @@ import 'package:untitled2/MainScreen/CreateCard/SimpleCard.dart';
 import 'package:untitled2/MainScreen/TitleCard.dart';
 import 'package:untitled2/ThemeColor.dart';
 
-import '../../Mng/CreateInfoProvider.dart';
+import '../../Provider/Create/CreateInfoProvider.dart';
 
 class CreateCard extends StatelessWidget {
   CreateCard({super.key});

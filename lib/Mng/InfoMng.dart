@@ -14,8 +14,9 @@ class InfoMng with ChangeNotifier {
     // loadData(db);
   }
 
-  Future<void> addInfoData(BuildContext cxt) async {
-
+  void addInfoData(BuildContext cxt, InfoDataframe info) async {
+    _info.add(info);
+    await cxt.read<DatabaseMng>().insertCard(info);
   }
 
   Future<InfoDataframe> loadData(BuildContext cxt) async {
@@ -26,10 +27,10 @@ class InfoMng with ChangeNotifier {
       _info.add(InfoDataframe.init(data[i]));
       _info[i].list = await db.getList(_info[i].getId());
     }
-    print(_info);
-    print(getCurrentData());
     return getCurrentData();
   }
+
+  bool existData() { return _info.length > 0; }
 
   InfoDataframe getCurrentData() {
     return _info[_curIndex];

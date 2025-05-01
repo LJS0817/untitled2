@@ -21,13 +21,14 @@ class UsageListView extends StatelessWidget {
           itemCount: context.read<InfoMng>().getCurrentData().list.length,
           shrinkWrap: true,
           itemBuilder: (ctx, index) {
-            return DataCard(
-              title: "타이틀",
-              sub: "서브타이틀",
-              cost: -1000 * index,
-              path: IconPath.getPath(ICON.E_APP),
-              iconIdx: 0,
-            );
+            return DataCard(context.read<InfoMng>().getCurrentData().list[index]);
+            // return DataCard.init(
+            //   title: "타이틀",
+            //   sub: "서브타이틀",
+            //   cost: -1000 * index,
+            //   path: IconPath.getPath(ICON.E_APP),
+            //   iconIdx: 0,
+            // );
           },
         ),
       ),

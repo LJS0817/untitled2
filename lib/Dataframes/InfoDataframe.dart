@@ -29,6 +29,11 @@ class InfoDataframe {
     _curOffset = _listOffset;
   }
 
+  int useMoney(int m) {
+    _money -= m;
+    return _money;
+  }
+
   void setMoney(int m) { _money = m; }
   int getMoney() { return _money; }
 
@@ -59,9 +64,19 @@ class InfoDataframe {
     return {
       'id' : _id,
       'name' : _name,
-      'usage' : _money,
-      'maxMoney' : _maxMoney,
+      'current' : _money,
+      'budget' : _maxMoney,
       'pin' : _pin,
+      'resetDate' : _resetDate,
+    };
+  }
+
+  Map<String, Object> toMapWithoutId() {
+    return {
+      'name' : _name,
+      'current' : _money,
+      'budget' : _maxMoney,
+      'pin' : _pin ? "0" : "NULL",
       'resetDate' : _resetDate,
     };
   }

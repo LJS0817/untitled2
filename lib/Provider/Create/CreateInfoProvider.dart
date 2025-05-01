@@ -1,6 +1,8 @@
 
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled2/Dataframes/InfoDataframe.dart';
+import 'package:untitled2/Mng/InfoMng.dart';
 
 class CreateInfoProvider extends ChangeNotifier {
   InfoDataframe _data = InfoDataframe();
@@ -41,7 +43,8 @@ class CreateInfoProvider extends ChangeNotifier {
   }
 
   void saveData(BuildContext context) {
-
+    InfoMng mng = context.read<InfoMng>();
+    mng.addInfoData(context, _data);
   }
 
   @override

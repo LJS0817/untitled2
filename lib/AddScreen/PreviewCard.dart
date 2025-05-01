@@ -9,16 +9,11 @@ import 'package:provider/provider.dart';
 
 import '../Utils/ConvertValue.dart';
 
-class DataCard extends StatelessWidget {
-  late DataFrame data;
-  // DataCard(Map<String, Object> map, {super.key}) {
-  //   //data.init(title, sub, cost, path, iconIdx);
-  // }
-
-  DataCard(Map<String, Object?> map) { data = DataFrame.init(map); }
+class PreviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CreateUsageProvider data = Provider.of<CreateUsageProvider>(context);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -41,7 +36,7 @@ class DataCard extends StatelessWidget {
                 width: 20,
                 height: 20,
                 child: SvgPicture.asset(
-                  IconPath.getPathUsingInt(data.getIconIndex()),
+                  IconPath.getPathUsingInt(int.parse(data.getData('iconIdx'))),
                   color: ThemeColor.MainColor,
                 ),
               ),
@@ -55,7 +50,7 @@ class DataCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    data.getTitle(),
+                    data.getData('title'),
                     overflow: TextOverflow.fade,
                     style: const TextStyle(
                       fontSize: 18,
@@ -63,7 +58,7 @@ class DataCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    data.getDetail(),
+                    data.getData('detail'),
                     style: const TextStyle(
                       height: 0.8,
                       fontSize: 13,
@@ -81,7 +76,7 @@ class DataCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  ConvertValue.costToString(data.getCost()),
+                  ConvertValue.costToString(int.parse(data.getData('cost'))),
                   style: const TextStyle(
                     color: ThemeColor.MainColor,
                     fontWeight: FontWeight.bold,
@@ -89,7 +84,7 @@ class DataCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "잔액. ${ConvertValue.costToString(data.getRemain())}",
+                  "잔액. ${ConvertValue.costToString(int.parse(data.getData('remain')))}",
                   style: const TextStyle(
                     height: 0.9,
                     color: ThemeColor.TextColorGrey,

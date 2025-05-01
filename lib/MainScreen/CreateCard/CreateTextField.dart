@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled2/Mng/CreateInfoProvider.dart';
+import 'package:untitled2/Provider/Create/CreateInfoProvider.dart';
 import 'package:untitled2/ThemeColor.dart';
 import 'package:untitled2/Utils/ConvertValue.dart';
 

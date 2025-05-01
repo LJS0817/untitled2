@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:untitled2/Dataframes/DataFrame.dart';
+import 'package:untitled2/Dataframes/InfoDataframe.dart';
 
 class DatabaseMng with ChangeNotifier {
   Database? db;
@@ -45,10 +47,21 @@ class DatabaseMng with ChangeNotifier {
     return await db!.rawQuery("SELECT * FROM ${_usageTable} WHERE cardID = ${id}");
   }
 
+  Future<int> insertCard(InfoDataframe info) async {
+    return await db!.insert(_cardTable, info.toMapWithoutId());
+  }
+
+  Future<int> insertUsage(DataFrame data) async {
+    return await db!.insert(_usageTable, data.toMapWithoutId());
+  }
+
+  Future<int> updateCard(Map<String, Object> data, int id) async {
+    return await db!.update(_cardTable, data, where: 'id=?', whereArgs: [id]);
+  }
+
   Future<void> init() async {
     if(db != null) return;
     db = await openDatabase(_dbName, version: 1, onCreate: _onCreate, onOpen: _onOpen);
-    // db?.execute("ALTER TABLE ${_cardTable} ADD COLUMN resetDate TEXT");
     // await db?.execute("DROP TABLE ${_cardTable}");
     // await db?.execute("DROP TABLE ${_usageTable}");
     // await db?.execute("DROP TABLE ${_customTable}");

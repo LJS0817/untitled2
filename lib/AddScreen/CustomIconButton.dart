@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:untitled2/Mng/DataMng.dart';
+import 'package:untitled2/Provider/Create/CreateUsageProvider.dart';
 import 'package:untitled2/ThemeColor.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +35,7 @@ class CustomIconButton extends StatelessWidget {
           splashColor: ThemeColor.MainColor.withOpacity(0.3),
           onTap: () {
             FocusManager.instance.primaryFocus?.unfocus();
-            //dataMng.setIconData(path, index);
+            context.read<CreateUsageProvider>().setData('iconIdx', index.toString());
           },
           borderRadius: BorderRadius.circular(100),
           child: AnimatedContainer(

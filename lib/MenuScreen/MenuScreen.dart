@@ -1,12 +1,16 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled2/MenuScreen/BottomButton.dart';
 import 'package:untitled2/MenuScreen/CustomNavigationBar.dart';
 import 'package:untitled2/MenuScreen/NewSpendItemBox.dart';
 import 'package:untitled2/MenuScreen/SpendItemBox.dart';
+import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:untitled2/StartWidget.dart';
 import 'package:untitled2/ThemeColor.dart';
+
+import '../Provider/Create/CreateUsageProvider.dart';
 
 class MenuScreen extends StatelessWidget {
   MenuScreen({super.key});
@@ -68,7 +72,7 @@ class MenuScreen extends StatelessWidget {
             ),
             CustomNavigationBar(
                   () => { Navigator.pop(context) },
-                  () => { Navigator.pushNamed(context, "/menu/add") },
+                  () => { Navigator.pushNamed(context, "/menu/add"), context.read<CreateUsageProvider>().clear(context.read<InfoMng>().getCurrentData().getId()) },
             ),
           ],
         ),

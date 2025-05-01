@@ -97,7 +97,7 @@ class _ResetTimePickerState extends State<ResetTimePicker> {
                           widget._callback(0, idx != 0 ? 1 : 0);
                           widget.isMonth = idx == 0 ? false : true;
                         });
-                      }, widget.isMonth != 0 ? 1 : 0),
+                      }, widget.isMonth ? 1 : 0),
                     ),
                     Expanded(
                       child: Picker(widget.isMonth ? ResetTimePicker.date : ResetTimePicker.day, (idx) {

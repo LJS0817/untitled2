@@ -13,17 +13,18 @@ import 'package:untitled2/MainScreen/TitleCard.dart';
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    InfoMng info = context.read<InfoMng>();
     return StartWidget(
         child: FutureBuilder(
-          future: context.read<InfoMng>().loadData(context),
+          future: info.loadData(context),
           builder: (cxt, snap) {
-            if(snap.hasData) {
-              log("TEST    +   " + snap.data!.toMap().toString());
+            if(snap.hasData || info.existData()) {
+              // log("TEST    +   " + snap.data!.toMap().toString());
               return Container(
                 color: Colors.white,
                 child: Column(
                   children: [
-                    TitleCard(snap.data),
+                    TitleCard(info.getCurrentData()),
                     SpendList(),
                   ],
                 ),
