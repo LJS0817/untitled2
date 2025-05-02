@@ -8,4 +8,8 @@ class ConvertValue {
     }
     return NumberFormat('###,###').format(m);
   }
+
+  static int toInt(Object? obj) {
+    return int.parse(obj.toString());
+  }
 }

@@ -22,7 +22,6 @@ class AddScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CreateUsageProvider data = Provider.of<CreateUsageProvider>(context);
-
     return StartWidget(
       child: ScrollConfiguration(
         behavior: const ScrollBehavior().copyWith(overscroll: false),

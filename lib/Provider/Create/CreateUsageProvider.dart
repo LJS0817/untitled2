@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled2/Dataframes/DataFrame.dart';
 import 'package:untitled2/Dataframes/InfoDataframe.dart';
 import 'package:untitled2/Mng/DatabaseMng.dart';
+import 'package:untitled2/Utils/ConvertValue.dart';
 
 import '../../Mng/InfoMng.dart';
 
@@ -16,9 +19,10 @@ class CreateUsageProvider extends ChangeNotifier {
 
   Future<int> saveData(BuildContext context) async {
     setData('date', '');
+    InfoDataframe info = Provider.of<InfoMng>(context, listen: false).getCurrentData();
+    if(info.getList().length > 1) data.setId(ConvertValue.toInt(info.getList()[info.getList().length - 1]['id']) + 1);
     await context.read<DatabaseMng>().insertUsage(data);
     context.read<InfoMng>().insertUsageData(data);
-    InfoDataframe info = context.read<InfoMng>().getCurrentData();
     return await context.read<DatabaseMng>().updateCard({'current' : info.useMoney(data.getCost())}, info.getId());
   }
 

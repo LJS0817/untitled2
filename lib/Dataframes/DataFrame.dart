@@ -1,9 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:untitled2/Utils/ConvertValue.dart';
 
 class DataFrame with ChangeNotifier {
-  int _id = 0;
+  int _id = 1;
   String _date = "";
   int _cardID = 0;
 
@@ -13,21 +14,22 @@ class DataFrame with ChangeNotifier {
   int _remain = 0;
   String _iconPath = "";
   int _iconIndex = 0;
+  int _removed = 0;
 
   DataFrame() {
 
   }
 
   DataFrame.init(Map<String, Object?> data) {
-    log(data.toString());
-    _id = int.parse(data["id"].toString());
+    _id = ConvertValue.toInt(data["id"]);
     _date = data["date"].toString();
-    _cardID = int.parse(data["cardID"].toString());
+    _cardID = ConvertValue.toInt(data["cardID"]);
     _title = data["title"].toString();
     _detail = data["detail"].toString();
-    _cost = int.parse(data["cost"].toString());
-    _remain = int.parse(data["remain"].toString());
-    _iconIndex = int.parse(data['iconIdx'].toString());
+    _cost = ConvertValue.toInt(data["cost"]);
+    _remain = ConvertValue.toInt(data["remain"]);
+    _iconIndex = ConvertValue.toInt(data['iconIdx']);
+    _removed = ConvertValue.toInt(data['removed']);
   }
 
   String getTitle() { return _title; }
@@ -36,7 +38,14 @@ class DataFrame with ChangeNotifier {
   int getRemain() { return _remain; }
   String getIconPath() { return _iconPath; }
   int getIconIndex() { return _iconIndex; }
+  int getId() { return _id; }
+  int getRemoved() { return _removed; }
 
+  bool isRefund() { return _removed == 2; }
+  bool isCanceled() { return _removed == 1; }
+  bool isNormal() { return _removed == 0; }
+
+  void setId(int i) { _id = i; }
   void setTitle(String str) { _title = str; }
   void setDetail(String str) { _detail = str; }
   void setCost(int i) { _cost = i; }
@@ -45,6 +54,7 @@ class DataFrame with ChangeNotifier {
   void setIconIndex(int i) { _iconIndex = i; }
   void setDate(String str) { _date = str; }
   void setCardID(int i) { _cardID = i; }
+  void setRemoved(int i) { _removed = i; }
 
   Map<String, Object> toMap() {
     return {
@@ -56,6 +66,7 @@ class DataFrame with ChangeNotifier {
       'cost' : _cost,
       'remain' : _remain,
       'iconIdx' : _iconIndex,
+      'removed' : _removed
     };
   }
 
@@ -68,6 +79,7 @@ class DataFrame with ChangeNotifier {
       'cost' : _cost,
       'remain' : _remain,
       'iconIdx' : _iconIndex,
+      'removed' : _removed
     };
   }
 }

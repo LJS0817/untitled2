@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled2/Dataframes/InfoDataframe.dart';
 import 'package:untitled2/Mng/IconPath.dart';
 import 'package:untitled2/ThemeColor.dart';
 import 'package:untitled2/Utils/ConvertValue.dart';
 
+import '../Mng/InfoMng.dart';
+
+import '../Mng/InfoMng.dart';
+
 class TitleCard extends StatelessWidget {
-  String title = "누구 카드";
   DateTime date = DateTime.now();
 
-  int money = 100000;
-  int total = 300000;
-
-  TitleCard(InfoDataframe? data, {super.key}) {
-    money = data!.getMoney();
-    total = data.getMax();
-    title = data.getName();
-  }
 
   String getDate() {
     return "${date.month < 10 ? "0" : ""}${date.month}.${date.day < 10 ? "0" : ""}${date.day}";
@@ -25,6 +21,7 @@ class TitleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    InfoMng info = Provider.of<InfoMng>(context);
     return Container(
       height: 110,
         decoration: BoxDecoration(
@@ -41,7 +38,7 @@ class TitleCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  info.getCurrentData().getName(),
                   style: const TextStyle(
                     color: ThemeColor.TextColorGrey,
                     fontSize: 15,
@@ -55,7 +52,7 @@ class TitleCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        ConvertValue.costToString(money),
+                        ConvertValue.costToString(info.getCurrentData().getMoney()),
                         style: const TextStyle(
                           color: ThemeColor.MainColor,
                           fontSize: 30,
@@ -63,7 +60,7 @@ class TitleCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "예산  ${ConvertValue.costToString(total)}",
+                        "예산  ${ConvertValue.costToString(info.getCurrentData().getMax())}",
                         style: TextStyle(
                           color: ThemeColor.MainColor.withOpacity(0.4),
                           fontSize: 15,

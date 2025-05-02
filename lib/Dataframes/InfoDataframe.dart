@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:untitled2/Dataframes/DataFrame.dart';
 import 'package:untitled2/Utils/ConvertValue.dart';
 
 class InfoDataframe {
@@ -52,6 +53,7 @@ class InfoDataframe {
 
   List<Map<String, Object?>> getList() { return list; }
   void addList(Map<String, Object> map) { list.add(map); }
+  void deleteList(int idx, DataFrame data) { list[idx] = data.toMap(); }
 
   String maxToString() {
     return ConvertValue.costToString(getMax());

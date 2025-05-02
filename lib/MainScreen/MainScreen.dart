@@ -13,7 +13,7 @@ import 'package:untitled2/MainScreen/TitleCard.dart';
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    InfoMng info = context.read<InfoMng>();
+    InfoMng info = context.watch<InfoMng>();
     return StartWidget(
         child: FutureBuilder(
           future: info.loadData(context),
@@ -24,7 +24,7 @@ class MainScreen extends StatelessWidget {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    TitleCard(info.getCurrentData()),
+                    TitleCard(),
                     SpendList(),
                   ],
                 ),

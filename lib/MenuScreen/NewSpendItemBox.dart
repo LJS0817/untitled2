@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled2/Mng/CustomMng.dart';
 import 'package:untitled2/Mng/IconPath.dart';
 import 'package:untitled2/Mng/InfoMng.dart';
+import 'package:untitled2/Provider/Create/CreateCustomProvider.dart';
 import 'package:untitled2/Provider/Create/CreateUsageProvider.dart';
 import 'package:untitled2/ThemeColor.dart';
 
@@ -23,8 +25,8 @@ class NewSpendItemBox extends StatelessWidget {
           highlightColor: ThemeColor.MainColor.withOpacity(0.3),
           splashColor: ThemeColor.MainColor.withOpacity(0.4),
           onTap: () {
-            context.read<CreateUsageProvider>().clear(context.read<InfoMng>().getCurrentData().getId());
-            Navigator.pushNamed(context, "/menu/add");
+            context.read<CreateCustomProvider>().clear();
+            Navigator.pushNamed(context, "/menu/add", arguments: {"flag" : "custom"});
           },
           child: Center(
             child: Column(

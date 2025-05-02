@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:untitled2/Dataframes/CustomDataframe.dart';
 import 'package:untitled2/Mng/IconPath.dart';
 import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:untitled2/ThemeColor.dart';
@@ -8,10 +9,8 @@ import 'package:provider/provider.dart';
 import '../Utils/ConvertValue.dart';
 
 class SpendItemBox extends StatelessWidget {
-  String title = "타이틀";
-  String subTitle = "서브타이틀";
-  String iconPath = IconPath.getPath(ICON.E_MENU_LIST);
-  int cost = -10000;
+  int index = 0;
+  late CustomDataframe data;
 
   Color backgroundColor = Colors.white;
   Color titleColor = Colors.black;
@@ -20,7 +19,10 @@ class SpendItemBox extends StatelessWidget {
 
   final double radius = 20;
 
-  SpendItemBox({super.key});
+  SpendItemBox(CustomDataframe frame, int idx, {super.key}) {
+    index = idx;
+    data = frame;
+  }
 
   Widget SpendItemLongTapButton(ICON iName) {
     return Expanded(
@@ -55,7 +57,7 @@ class SpendItemBox extends StatelessWidget {
   Widget build(BuildContext context) {
     InfoMng info = Provider.of<InfoMng>(context);
     return AnimatedContainer(
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
         color: backgroundColor,
@@ -69,7 +71,7 @@ class SpendItemBox extends StatelessWidget {
                 Positioned(
                   top: 5,
                   child: Text(
-                    title,
+                    data.getTitle(),
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
@@ -80,7 +82,7 @@ class SpendItemBox extends StatelessWidget {
                 Positioned(
                   top: 25,
                   child: Text(
-                    subTitle,
+                    data.getDetail(),
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
@@ -99,7 +101,7 @@ class SpendItemBox extends StatelessWidget {
                         borderRadius: BorderRadius.circular(100),
                       ),
                       child: SvgPicture.asset(
-                        iconPath,
+                        IconPath.getPathUsingInt(data.getIconIdx()),
                         color: ThemeColor.MainColor,
                       ),
                     )
@@ -108,7 +110,7 @@ class SpendItemBox extends StatelessWidget {
                   bottom: 0,
                   right: 0,
                   child: Text(
-                    ConvertValue.costToString(cost),
+                    ConvertValue.costToString(data.getCost()),
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,

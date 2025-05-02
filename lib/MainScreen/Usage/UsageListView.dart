@@ -10,7 +10,7 @@ class UsageListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(context.read<InfoMng>().getCurrentData().list);
+    InfoMng info = Provider.of<InfoMng>(context);
     return Positioned(
       top: 75,
       left: 10,
@@ -19,17 +19,10 @@ class UsageListView extends StatelessWidget {
       child: ScrollConfiguration(
         behavior: const ScrollBehavior().copyWith(overscroll: false),
         child: ListView.builder(
-          itemCount: context.watch<InfoMng>().getCurrentData().list.length,
+          itemCount: info.getCurrentData().list.length,
           shrinkWrap: true,
           itemBuilder: (ctx, index) {
-            return DataCard(context.watch<InfoMng>().getCurrentData().list[index]);
-            // return DataCard.init(
-            //   title: "타이틀",
-            //   sub: "서브타이틀",
-            //   cost: -1000 * index,
-            //   path: IconPath.getPath(ICON.E_APP),
-            //   iconIdx: 0,
-            // );
+            return DataCard(info.getCurrentData().list[info.getCurrentData().list.length - 1 - index], info.getCurrentData().list.length - 1 - index);
           },
         ),
       ),
