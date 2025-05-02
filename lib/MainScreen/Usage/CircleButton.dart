@@ -28,8 +28,9 @@ class CircleButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
             highlightColor: Colors.white.withOpacity(0.3),
             splashColor: Colors.white.withOpacity(0.5),
-            onTap: () {
-              Navigator.pushNamed(context, '/menu').then((value) => log("TEST 123999982100"));
+            onTap: () async {
+              await Navigator.pushNamed(context, '/menu');
+              context.read<InfoMng>().changeState();
             },
             child: Center(
               child: SizedBox(

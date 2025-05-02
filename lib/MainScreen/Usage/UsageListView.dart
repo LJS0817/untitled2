@@ -19,10 +19,10 @@ class UsageListView extends StatelessWidget {
       child: ScrollConfiguration(
         behavior: const ScrollBehavior().copyWith(overscroll: false),
         child: ListView.builder(
-          itemCount: context.read<InfoMng>().getCurrentData().list.length,
+          itemCount: context.watch<InfoMng>().getCurrentData().list.length,
           shrinkWrap: true,
           itemBuilder: (ctx, index) {
-            return DataCard(context.read<InfoMng>().getCurrentData().list[index]);
+            return DataCard(context.watch<InfoMng>().getCurrentData().list[index]);
             // return DataCard.init(
             //   title: "타이틀",
             //   sub: "서브타이틀",
