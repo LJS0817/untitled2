@@ -51,6 +51,7 @@ class InfoDataframe {
   String getResetDate() { return _resetDate; }
 
   List<Map<String, Object?>> getList() { return list; }
+  void addList(Map<String, Object> map) { list.add(map); }
 
   String maxToString() {
     return ConvertValue.costToString(getMax());

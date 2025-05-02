@@ -62,6 +62,7 @@ class DatabaseMng with ChangeNotifier {
   Future<void> init() async {
     if(db != null) return;
     db = await openDatabase(_dbName, version: 1, onCreate: _onCreate, onOpen: _onOpen);
+    // await db!.execute("ALTER TABLE ${_usageTable} ADD COLUMN cardID INTEGER");
     // await db?.execute("DROP TABLE ${_cardTable}");
     // await db?.execute("DROP TABLE ${_usageTable}");
     // await db?.execute("DROP TABLE ${_customTable}");

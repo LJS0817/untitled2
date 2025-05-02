@@ -10,6 +10,7 @@ class UsageListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(context.read<InfoMng>().getCurrentData().list);
     return Positioned(
       top: 75,
       left: 10,

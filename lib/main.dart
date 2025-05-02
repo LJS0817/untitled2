@@ -3,7 +3,6 @@ import 'package:untitled2/AddScreen/AddScreen.dart';
 import 'package:untitled2/MainScreen/MainScreen.dart';
 import 'package:untitled2/MenuScreen/MenuScreen.dart';
 import 'package:untitled2/Provider/Create/CreateInfoProvider.dart';
-import 'package:untitled2/Mng/DataMng.dart';
 import 'package:untitled2/Mng/DatabaseMng.dart';
 import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:provider/provider.dart';

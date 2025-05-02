@@ -45,6 +45,7 @@ class CreateInfoProvider extends ChangeNotifier {
   void saveData(BuildContext context) {
     InfoMng mng = context.read<InfoMng>();
     mng.addInfoData(context, _data);
+    notifyListeners();
   }
 
   @override

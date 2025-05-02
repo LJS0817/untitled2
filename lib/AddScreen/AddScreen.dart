@@ -10,11 +10,12 @@ import 'package:untitled2/MainScreen/DataCard.dart';
 import 'package:untitled2/MenuScreen/CustomNavigationBar.dart';
 import 'package:untitled2/Mng/IconPath.dart';
 import 'package:untitled2/Provider/Create/CreateInfoProvider.dart';
-import 'package:untitled2/Mng/DataMng.dart';
 import 'package:untitled2/Provider/Create/CreateUsageProvider.dart';
 import 'package:untitled2/StartWidget.dart';
 import 'package:untitled2/ThemeColor.dart';
 import 'package:provider/provider.dart';
+
+import '../Mng/InfoMng.dart';
 
 class AddScreen extends StatelessWidget {
 
@@ -50,11 +51,12 @@ class AddScreen extends StatelessWidget {
                   background: DismissBackgroundContainer(ThemeColor.MainColor, Colors.white, "삭제하기", IconPath.getPath(ICON.E_MENU_DELETE)),
                   secondaryBackground: DismissBackgroundContainer(Colors.white, ThemeColor.MainColor, "추가하기", IconPath.getPath(ICON.E_MENU_ADD)),
                   dismissThresholds: const { DismissDirection.startToEnd : 0.7, DismissDirection.endToStart : 0.7 },
-                  onDismissed: (DismissDirection dir) {
+                  onDismissed: (DismissDirection dir) async {
                     if(dir.index == 2) {  //right
-                      data.saveData(context);
-                      Navigator.of(context)..pop()..pop();
+                      await data.saveData(context);
+                      if(context.mounted) Navigator.of(context)..pop()..pop();
                     } else if(dir.index == 3) { //left
+                      data.clear(context.read<InfoMng>().getCurrentData().getId());
                       Navigator.of(context).pop();
                     }
                   },

@@ -14,11 +14,12 @@ class CreateUsageProvider extends ChangeNotifier {
     return data;
   }
 
-  void saveData(BuildContext context) async {
+  Future<int> saveData(BuildContext context) async {
     setData('date', '');
     await context.read<DatabaseMng>().insertUsage(data);
+    context.read<InfoMng>().insertUsageData(data);
     InfoDataframe info = context.read<InfoMng>().getCurrentData();
-    await context.read<DatabaseMng>().updateCard({'current' : info.useMoney(data.getCost())}, info.getId());
+    return await context.read<DatabaseMng>().updateCard({'current' : info.useMoney(data.getCost())}, info.getId());
   }
 
   void setData(String sKey, String value) {

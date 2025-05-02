@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled2/Dataframes/DataFrame.dart';
 import 'package:untitled2/Mng/DatabaseMng.dart';
 
 import '../Dataframes/InfoDataframe.dart';
@@ -14,9 +17,16 @@ class InfoMng with ChangeNotifier {
     // loadData(db);
   }
 
+  void insertUsageData(DataFrame data) {
+    getCurrentData().addList(data.toMap());
+    log("LIST    _    " + getCurrentData().list.toString());
+    notifyListeners();
+  }
+
   void addInfoData(BuildContext cxt, InfoDataframe info) async {
     _info.add(info);
     await cxt.read<DatabaseMng>().insertCard(info);
+    notifyListeners();
   }
 
   Future<InfoDataframe> loadData(BuildContext cxt) async {
@@ -25,7 +35,7 @@ class InfoMng with ChangeNotifier {
     print(data);
     for(int i = 0; i < data.length; i++) {
       _info.add(InfoDataframe.init(data[i]));
-      _info[i].list = await db.getList(_info[i].getId());
+      _info[i].list = List.from(await db.getList(_info[i].getId()));
     }
     return getCurrentData();
   }

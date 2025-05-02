@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled2/Mng/IconPath.dart';
+import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:untitled2/ThemeColor.dart';
 
 class CircleButton extends StatelessWidget {
@@ -27,7 +29,7 @@ class CircleButton extends StatelessWidget {
             highlightColor: Colors.white.withOpacity(0.3),
             splashColor: Colors.white.withOpacity(0.5),
             onTap: () {
-              Navigator.pushNamed(context, '/menu');
+              Navigator.pushNamed(context, '/menu').then((value) => log("TEST 123999982100"));
             },
             child: Center(
               child: SizedBox(
