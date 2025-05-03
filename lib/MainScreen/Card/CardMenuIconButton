@@ -1,0 +1,45 @@
+
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:untitled2/Mng/IconPath.dart';
+import 'package:untitled2/ThemeColor.dart';
+
+class CardMenuIconButton extends StatelessWidget {
+    late Function _callback;
+    ICON _icon = 0;
+    late Color _color;
+
+    CardMenuButton(ICON i, Color c, Function func, {super.key}) {
+        _icon = i;
+        _callback = func;
+        _color = c;
+    }
+
+    @override
+    Widget build(BuildContext context) {
+        return Container(
+            width: 70,
+            height: 40,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+            ),
+            child: Material(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(10),
+                child: InkWell(
+                    splashColor: _color.withOpacity(0.4),
+                    highlightColor: _color.withOpacity(0.4)
+                    onTap: () {
+                        _callback();
+                    },
+                    child: SvgPicture.asset(
+                        IconPath.getPath(_icon),
+                        color: _color,
+                    )
+                )
+            )
+        )
+    }
+}

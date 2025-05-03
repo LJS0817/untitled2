@@ -13,7 +13,7 @@ import '../Mng/InfoMng.dart';
 
 class TitleCard extends StatelessWidget {
   DateTime date = DateTime.now();
-
+  bool showMenu = false;
 
   String getDate() {
     return "${date.month < 10 ? "0" : ""}${date.month}.${date.day < 10 ? "0" : ""}${date.day}";
@@ -29,10 +29,14 @@ class TitleCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Stack(
         children: [
-          Container(
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            top: 0,
+            child: Container(
             padding: const EdgeInsets.only(left: 15, top: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,24 +78,54 @@ class TitleCard extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            width: 50,
-            height: double.infinity,
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: ThemeColor.MainColor,
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            top: 0,
+            child: Material(
+              color: Colors.transparent,
               borderRadius: BorderRadius.circular(10),
-            ),
-            child: SizedBox(
-              width: 25,
-              height: 25,
-              child: SvgPicture.asset(
-                IconPath.getPath(ICON.E_MENU_EDIT),
-                color: Colors.white,
+              child: InkWell(
+                highlightColor: ThemeColor.MainColor.withOpacity(0.4),
+                splashColor: ThemeColor.MainColor.withOpacity(0.4),
+                onTap: () {
+                  log("TRIGGER MENU");
+                  showMenu = !showMenu;
+                }
               ),
-            )
-          )
+            ),
+          ),
+          Positioned(
+            right: 0,
+            top: 0,
+            bottom: 0,
+            child: Column(
+              children: [
+                CardMenuIconButton(ICON.E_MENU_EDIT, ThemeColor.MainColor, () {}),
+                CardMenuIconButton(ICON.E_MENU_DELETE, ThemeColor.MainColor, () {}),
+              ],
+            ),
+          ),
+          // Container(
+          //   width: 50,
+          //   height: double.infinity,
+          //   margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          //   alignment: Alignment.center,
+          //   decoration: BoxDecoration(
+          //     color: ThemeColor.MainColor,
+          //     borderRadius: BorderRadius.circular(10),
+          //   ),
+          //   child: SizedBox(
+          //     width: 25,
+          //     height: 25,
+          //     child: SvgPicture.asset(
+          //       IconPath.getPath(ICON.E_MENU_EDIT),
+          //       color: Colors.white,
+          //     ),
+          //   )
+          // )
         ],
       ),
     );
