@@ -10,6 +10,7 @@ import 'package:untitled2/Mng/CustomMng.dart';
 import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:untitled2/StartWidget.dart';
 import 'package:untitled2/ThemeColor.dart';
+import 'package:untitled2/Utils/ArgumentConvert.dart';
 
 import '../Provider/Create/CreateUsageProvider.dart';
 
@@ -76,7 +77,7 @@ class MenuScreen extends StatelessWidget {
                 ),
                 CustomNavigationBar(
                       () => { Navigator.pop(context) },
-                      () => { Navigator.pushNamed(context, "/menu/add", arguments: {"flag" : "usage"}), context.read<CreateUsageProvider>().clear(context.read<InfoMng>().getCurrentData().getId()) },
+                      () => { Navigator.pushNamed(context, "/menu/add", arguments: ArgumentConvert("usage")) },
                 ),
               ],
             ),

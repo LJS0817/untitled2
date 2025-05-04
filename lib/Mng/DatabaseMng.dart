@@ -15,6 +15,7 @@ class DatabaseMng with ChangeNotifier {
   final String _cardTable = "card";
   final String _usageTable = 'usage';
   final String _customTable = 'custom';
+  final String _configTable = "config";
 
   DatabaseMng() {
     // init();
@@ -26,6 +27,7 @@ class DatabaseMng with ChangeNotifier {
     batch.execute("CREATE TABLE ${_cardTable} (id INTEGER PRIMARY KEY, name TEXT, current INTEGER, budget INTEGER, resetDate TEXT, pin INTEGER);");
     batch.execute("CREATE TABLE ${_usageTable} (id INTEGER PRIMARY KEY, date TEXT, title TEXT, detail TEXT, cost INTEGER, remain INTEGER, iconIdx INTEGER, cardID INTEGER, removed INTEGER);");
     batch.execute("CREATE TABLE ${_customTable} (id INTEGER PRIMARY KEY, title TEXT, detail TEXT, iconIdx INTEGER, cost INTEGER);");
+    batch.execute("CREATE TABLE ${_configTable} (id INTEGER PRIMARY KEY, value INTEGER);");
     batch.commit();
     // await db.insert(...);
   }
@@ -37,6 +39,7 @@ class DatabaseMng with ChangeNotifier {
   Future<void> init() async {
     if(db != null) return;
     db = await openDatabase(_dbName, version: 1, onCreate: _onCreate, onOpen: _onOpen);
+    // db!.execute("CREATE TABLE ${_configTable} (id INTEGER PRIMARY KEY, value INTEGER);");
 
     // await db!.execute("ALTER TABLE ${_usageTable} ADD COLUMN removed TEXT");
 

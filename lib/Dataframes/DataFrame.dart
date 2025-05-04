@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:untitled2/Dataframes/CustomDataframe.dart';
 import 'package:untitled2/Utils/ConvertValue.dart';
+import 'package:untitled2/Utils/DateViewer.dart';
 
 class DataFrame with ChangeNotifier {
   int _id = 1;
@@ -12,12 +14,19 @@ class DataFrame with ChangeNotifier {
   String _detail = "";
   int _cost = 0;
   int _remain = 0;
-  String _iconPath = "";
-  int _iconIndex = 0;
+  int _iconIndex = 1;
   int _removed = 0;
 
   DataFrame() {
+    _date = "";
+    _cardID = 0;
 
+    _title = "";
+    _detail = "";
+    _cost = 0;
+    _remain = 0;
+    _iconIndex = 1;
+    _removed = 0;
   }
 
   DataFrame.init(Map<String, Object?> data) {
@@ -32,11 +41,20 @@ class DataFrame with ChangeNotifier {
     _removed = ConvertValue.toInt(data['removed']);
   }
 
+  DataFrame.convert(CustomDataframe data, int cId, int re) {
+    _date = DateViewer.getDate();
+    _title = data.getTitle();
+    _detail = data.getDetail();
+    _cost = data.getCost();
+    _remain = re;
+    _iconIndex = data.getIconIdx();
+    _removed = 0;
+  }
+
   String getTitle() { return _title; }
   String getDetail() { return _detail; }
   int getCost() { return _cost; }
   int getRemain() { return _remain; }
-  String getIconPath() { return _iconPath; }
   int getIconIndex() { return _iconIndex; }
   int getId() { return _id; }
   int getRemoved() { return _removed; }
@@ -50,7 +68,6 @@ class DataFrame with ChangeNotifier {
   void setDetail(String str) { _detail = str; }
   void setCost(int i) { _cost = i; }
   void setRemain(int i) { _remain = i; }
-  void setIconPath(String str) { _iconPath = str; }
   void setIconIndex(int i) { _iconIndex = i; }
   void setDate(String str) { _date = str; }
   void setCardID(int i) { _cardID = i; }

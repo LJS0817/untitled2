@@ -8,11 +8,13 @@ class CustomIconButton extends StatelessWidget {
   bool isSelected = false;
   String path = "";
   int index = 0;
+  bool isTitle = false;
 
   CustomIconButton(bool b, String str, int idx, {super.key}) {
     isSelected = b;
     path = str;
     index = idx;
+    isTitle = !path.contains('/');
   }
 
   @override
@@ -27,7 +29,21 @@ class CustomIconButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(100),
         border: isSelected ? Border.all(color: ThemeColor.MainColor, width: 3) : null,
       ),
-      child: Material(
+      child: isTitle ? Container(
+        decoration: BoxDecoration(
+          color: ThemeColor.MainColor,
+          borderRadius: BorderRadius.circular(100),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          path,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            height: 2,
+          ),
+        ),
+      ) : Material(
         color: Colors.transparent,
         child: InkWell(
           highlightColor: ThemeColor.MainColor.withOpacity(0.2),

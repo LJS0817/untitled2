@@ -7,6 +7,7 @@ import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:untitled2/Provider/Create/CreateCustomProvider.dart';
 import 'package:untitled2/Provider/Create/CreateUsageProvider.dart';
 import 'package:untitled2/ThemeColor.dart';
+import 'package:untitled2/Utils/ArgumentConvert.dart';
 
 class NewSpendItemBox extends StatelessWidget {
   NewSpendItemBox({super.key});
@@ -26,7 +27,7 @@ class NewSpendItemBox extends StatelessWidget {
           splashColor: ThemeColor.MainColor.withOpacity(0.4),
           onTap: () {
             context.read<CreateCustomProvider>().clear();
-            Navigator.pushNamed(context, "/menu/add", arguments: {"flag" : "custom"});
+            Navigator.pushNamed(context, "/menu/add", arguments: ArgumentConvert("custom"));
           },
           child: Center(
             child: Column(

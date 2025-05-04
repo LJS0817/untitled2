@@ -19,8 +19,13 @@ class InfoMng with ChangeNotifier {
     // loadData(db);
   }
 
-  void insertUsageData(DataFrame data) {
+  void useMoney(int m) {
+    getCurrentData().useMoney(m);
+  }
+
+  Future<void> insertUsageData(BuildContext context, DataFrame data) async {
     getCurrentData().addList(data.toMap());
+    await context.read<DatabaseMng>().insertUsage(data);
     // log("LIST    _    " + getCurrentData().list.toString());
     notifyListeners();
   }
@@ -53,7 +58,7 @@ class InfoMng with ChangeNotifier {
     return true;
   }
 
-  bool existData() { return _info.length > 0; }
+  bool existData() { return _info.isNotEmpty; }
 
   InfoDataframe getCurrentData() {
     return _info[_curIndex];

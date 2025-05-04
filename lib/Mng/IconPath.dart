@@ -1,15 +1,18 @@
 import 'dart:developer';
 
 enum ICON {
+  E_COMPUTER_TITLE,
   E_COMPUTER_KEYBOARD,
   E_COMPUTER_MONITOR,
   E_COMPUTER_MOUSE,
   E_COMPUTER_CONTROLLER,
 
+  E_FURNITURE_TITLE,
   E_FURNITURE_LAMP,
   E_FURNITURE_LIGHT,
   E_FURNITURE_SOFA,
 
+  E_HOBBY_TITLE,
   E_HOBBY_BASEBALL,
   E_HOBBY_BASKETBALLL,
   E_HOBBY_BOWLING,
@@ -19,12 +22,14 @@ enum ICON {
   E_HOBBY_TENNIS,
   E_HOBBY_TRAVEL,
 
+  E_TRANS_TITLE,
   E_TRANS_BUS,
   E_TRANS_PLANE,
   E_TRANS_SHIP,
   E_TRANS_SUBWAY,
   E_TRANS_TRAIN,
 
+  E_LIVE_TITLE,
   E_APP,
   E_CLOTH,
   E_COFFEE,
@@ -49,15 +54,18 @@ class IconPath {
   static const String _menuHeader = "/menu/";
   static const String _addHeader = "/category/";
   static const List<String> _path = [
+    "컴퓨터",
     "computer/keyboard.svg",
     "computer/monitor.svg",
     "computer/mouse.svg",
     "computer/game.svg",
 
+    "가구",
     "furniture/lamp.svg",
     "furniture/light.svg",
     "furniture/sofa.svg",
 
+    "취미",
     "hobby/baseball.svg",
     "hobby/basketball.svg",
     "hobby/bowling.svg",
@@ -67,12 +75,14 @@ class IconPath {
     "hobby/tennis.svg",
     "hobby/travel.svg",
 
+    "교통",
     "transfer/bus.svg",
     "transfer/plane.svg",
     "transfer/ship.svg",
     "transfer/subway.svg",
     "transfer/train.svg",
 
+    "생활",
     "app.svg",
     "cloth.svg",
     "coffee.svg",
@@ -91,11 +101,17 @@ class IconPath {
     "list.svg",
     "save.svg",
   ];
+  static String getString(ICON t) {
+    return _path[t.index];
+  }
   static String getPath(ICON t) {
-    return _header + ((t.index < ICON.E_MENU_ADD.index) ? _addHeader : _menuHeader) + _path[t.index];
+    return _header + ((t.index < ICON.E_MENU_ADD.index) ? _addHeader : _menuHeader) + getString(t);
   }
   static String getPathUsingInt(int idx) {
-    return _header  + ((idx < ICON.E_MENU_ADD.index) ? _addHeader : _menuHeader) +  _path[idx];
+    return getValidPath(idx);
+  }
+  static String getValidPath(int idx) {
+    return (_path[idx].contains('.svg') ? _header  + ((idx < ICON.E_MENU_ADD.index) ? _addHeader : _menuHeader) : "") +  _path[idx];
   }
   static int getLength() {
     return ICON.E_MENU_ADD.index;

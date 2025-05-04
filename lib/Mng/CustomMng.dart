@@ -10,14 +10,19 @@ class CustomMng extends ChangeNotifier {
 
   void insertCustom(BuildContext cxt, CustomDataframe data) async {
     await cxt.read<DatabaseMng>().insertCustom(data);
+    if(_set.length > 1) data.setId(_set[_set.length - 1].getId() + 1);
+    _set.add(data);
+    notifyListeners();
   }
 
   void updateCustom(BuildContext cxt, CustomDataframe data) async {
     await cxt.read<DatabaseMng>().updateCustom(data);
+    notifyListeners();
   }
 
   void deleteCustom(BuildContext cxt, int id) async {
     await cxt.read<DatabaseMng>().deleteCustom(id);
+    notifyListeners();
   }
 
   Future<bool> loadData(BuildContext context) async {

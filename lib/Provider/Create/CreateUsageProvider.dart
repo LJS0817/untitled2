@@ -7,6 +7,7 @@ import 'package:untitled2/Dataframes/DataFrame.dart';
 import 'package:untitled2/Dataframes/InfoDataframe.dart';
 import 'package:untitled2/Mng/DatabaseMng.dart';
 import 'package:untitled2/Utils/ConvertValue.dart';
+import 'package:untitled2/Utils/DateViewer.dart';
 
 import '../../Mng/InfoMng.dart';
 
@@ -17,19 +18,18 @@ class CreateUsageProvider extends ChangeNotifier {
     return data;
   }
 
-  Future<int> saveData(BuildContext context) async {
+  void saveData(BuildContext context) async {
     setData('date', '');
     InfoDataframe info = Provider.of<InfoMng>(context, listen: false).getCurrentData();
     if(info.getList().length > 1) data.setId(ConvertValue.toInt(info.getList()[info.getList().length - 1]['id']) + 1);
-    await context.read<DatabaseMng>().insertUsage(data);
-    context.read<InfoMng>().insertUsageData(data);
-    return await context.read<DatabaseMng>().updateCard({'current' : info.useMoney(data.getCost())}, info.getId());
+    await context.read<InfoMng>().insertUsageData(context, data);
+    await context.read<DatabaseMng>().updateCard({'current' : info.getMoney()}, info.getId());
   }
 
   void setData(String sKey, String value) {
     switch(sKey) {
       case "date" :
-        data.setDate(DateFormat('yyyyMMdd').format(DateTime.now()));
+        data.setDate(DateViewer.getDate());
         break;
       case 'title' :
         data.setTitle(value);

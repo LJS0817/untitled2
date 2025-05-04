@@ -13,12 +13,12 @@ import 'package:untitled2/MainScreen/TitleCard.dart';
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    InfoMng info = context.watch<InfoMng>();
+    InfoMng info = Provider.of<InfoMng>(context);
     return StartWidget(
         child: FutureBuilder(
           future: info.loadData(context),
           builder: (cxt, snap) {
-            if(snap.hasData || info.existData()) {
+            if(snap.hasData && info.existData()) {
               // log("TEST    +   " + snap.data!.toMap().toString());
               return Container(
                 color: Colors.white,

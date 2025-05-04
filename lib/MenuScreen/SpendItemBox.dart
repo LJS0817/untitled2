@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:untitled2/Dataframes/CustomDataframe.dart';
+import 'package:untitled2/Dataframes/DataFrame.dart';
+import 'package:untitled2/Dataframes/InfoDataframe.dart';
 import 'package:untitled2/Mng/IconPath.dart';
 import 'package:untitled2/Mng/InfoMng.dart';
 import 'package:untitled2/ThemeColor.dart';
@@ -128,14 +130,16 @@ class SpendItemBox extends StatelessWidget {
                 borderRadius: BorderRadius.circular(radius),
                 highlightColor: ThemeColor.MainColor.withOpacity(0.3),
                 splashColor: ThemeColor.MainColor.withOpacity(0.2),
-                onTap: () {
+                onTap: () async {
                   if(backgroundColor == ThemeColor.MainColor) {
                     backgroundColor = Colors.white;
                     titleColor = Colors.black;
                     subTitleColor = ThemeColor.TextColorGrey;
                     costColor = ThemeColor.MainColor;
                   }
-                  info.changeState();
+                  await info.insertUsageData(context, DataFrame.convert(data, info.getCurrentData().getId(), info.getCurrentData().useMoney(data.getCost())));
+                  Navigator.of(context).pop();
+                  // info.changeState();
                 },
                 onLongPress: () {
                   if(backgroundColor == Colors.white) {

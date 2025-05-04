@@ -17,6 +17,13 @@ class CustomDataframe {
     _iconIdx = ConvertValue.toInt(data["iconIdx"]);
   }
 
+  CustomDataframe.init2(Map<String, Object?> data) {
+    _title = data["title"].toString();
+    _detail = data["detail"].toString();
+    _cost = ConvertValue.toInt(data["cost"]);
+    _iconIdx = ConvertValue.toInt(data["iconIdx"]);
+  }
+
   int getId() { return _id; }
   void setId(int id) { _id = id; }
 
