@@ -38,7 +38,7 @@ class CreateUsageProvider extends ChangeNotifier {
         data.setDetail(value);
         break;
       case 'cost' :
-        data.setCost(int.parse(value));
+        data.setCost(int.parse(value.isEmpty ? '0' : value));
         break;
       case 'remain' :
         data.setRemain(int.parse(value));

@@ -15,6 +15,7 @@ dependencies:
   flutter_svg:
   flutter_animate:
   sqflite:
+  path:
 
 dev_dependencies:
   flutter_test:

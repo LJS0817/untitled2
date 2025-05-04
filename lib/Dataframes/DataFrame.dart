@@ -44,6 +44,7 @@ class DataFrame with ChangeNotifier {
   DataFrame.convert(CustomDataframe data, int cId, int re) {
     _date = DateViewer.getDate();
     _title = data.getTitle();
+    _cardID = cId;
     _detail = data.getDetail();
     _cost = data.getCost();
     _remain = re;

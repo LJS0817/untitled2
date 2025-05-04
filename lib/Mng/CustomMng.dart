@@ -9,9 +9,9 @@ class CustomMng extends ChangeNotifier {
   bool _started = false;
 
   void insertCustom(BuildContext cxt, CustomDataframe data) async {
-    await cxt.read<DatabaseMng>().insertCustom(data);
     if(_set.length > 1) data.setId(_set[_set.length - 1].getId() + 1);
     _set.add(data);
+    await cxt.read<DatabaseMng>().insertCustom(data);
     notifyListeners();
   }
 

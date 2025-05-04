@@ -44,7 +44,6 @@ class AddScreen extends StatelessWidget {
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
-
                           ),
                         ),
                         // const Text(
@@ -122,10 +121,13 @@ class AddScreen extends StatelessWidget {
                 ),
                 CustomNavigationBar(
                       () => {
+                        FocusManager.instance.primaryFocus?.unfocus(),
                         data.clear(context.read<InfoMng>().getCurrentData().getId()),
                         Navigator.pop(context)
                       },
                       () => {
+                        FocusManager.instance.primaryFocus?.unfocus(),
+
                         if(flag.flag == "usage") {
                           data.saveData(context), context.read<InfoMng>().useMoney(int.parse(data.getData('cost'))),
                           data.clear(context.read<InfoMng>().getCurrentData().getId()),

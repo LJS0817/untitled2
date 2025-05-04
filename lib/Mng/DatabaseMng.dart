@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:untitled2/Dataframes/CustomDataframe.dart';
 import 'package:untitled2/Dataframes/DataFrame.dart';
@@ -38,7 +39,9 @@ class DatabaseMng with ChangeNotifier {
 
   Future<void> init() async {
     if(db != null) return;
-    db = await openDatabase(_dbName, version: 1, onCreate: _onCreate, onOpen: _onOpen);
+    String databasesPath = await getDatabasesPath();
+    String path = join(databasesPath, _dbName);
+    db = await openDatabase(path, version: 1, onCreate: _onCreate, onOpen: _onOpen);
     // db!.execute("CREATE TABLE ${_configTable} (id INTEGER PRIMARY KEY, value INTEGER);");
 
     // await db!.execute("ALTER TABLE ${_usageTable} ADD COLUMN removed TEXT");

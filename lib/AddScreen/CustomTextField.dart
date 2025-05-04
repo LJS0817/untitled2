@@ -57,6 +57,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               child: Focus(
                 onFocusChange: (focus) {
                   setState(() {
+                    log(widget._title + "    " + focus.toString());
                     widget._hasFocus = focus;
                   });
                   if(!focus) {

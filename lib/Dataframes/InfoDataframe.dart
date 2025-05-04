@@ -6,7 +6,7 @@ class InfoDataframe {
   String _name = "";
   int _money = 0;
   int _maxMoney = 0;
-  int _id = -1;
+  int _id = 1;
   bool _pin = false;
   String _resetDate = "000";
 
