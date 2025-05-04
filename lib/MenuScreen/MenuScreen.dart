@@ -77,7 +77,7 @@ class MenuScreen extends StatelessWidget {
                 ),
                 CustomNavigationBar(
                       () => { Navigator.pop(context) },
-                      () => { Navigator.pushNamed(context, "/menu/add", arguments: ArgumentConvert("usage")) },
+                      () => { context.read<CreateUsageProvider>().clear(context.read<InfoMng>().getCurrentData().getId()), Navigator.pushNamed(context, "/menu/add", arguments: ArgumentConvert("usage")) },
                 ),
               ],
             ),
