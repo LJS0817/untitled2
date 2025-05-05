@@ -26,7 +26,8 @@ class NewSpendItemBox extends StatelessWidget {
           highlightColor: ThemeColor.MainColor.withOpacity(0.3),
           splashColor: ThemeColor.MainColor.withOpacity(0.4),
           onTap: () {
-            context.read<CreateCustomProvider>().clear();
+            context.read<CreateUsageProvider>().clear(-1);
+            // context.read<CreateCustomProvider>().clear();
             Navigator.pushNamed(context, "/menu/add", arguments: ArgumentConvert("custom"));
           },
           child: Center(

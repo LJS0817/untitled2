@@ -6,7 +6,7 @@ class InfoDataframe {
   String _name = "";
   int _money = 0;
   int _maxMoney = 0;
-  int _id = 1;
+  int _id = -1;
   bool _pin = false;
   String _resetDate = "000";
 
@@ -17,7 +17,14 @@ class InfoDataframe {
   int _curOffset = 0;
 
   InfoDataframe() {
+    _name = "";
+    _money = 0;
+    _maxMoney = 0;
+    _id = -1;
+    _pin = false;
+    _resetDate = "000";
 
+    list = [];
   }
 
   InfoDataframe.init(Map<String,Object?> data) {
@@ -42,6 +49,7 @@ class InfoDataframe {
   int getMax() { return _maxMoney; }
 
   int getId() { return _id; }
+  void setId(int n) { _id = n; }
 
   void setName(String str) { _name = str; }
   String getName() { return _name; }
@@ -82,5 +90,10 @@ class InfoDataframe {
       'pin' : _pin ? "0" : "NULL",
       'resetDate' : _resetDate,
     };
+  }
+
+  InfoDataframe clone() {
+    InfoDataframe rst = InfoDataframe.init(toMap());
+    return rst;
   }
 }

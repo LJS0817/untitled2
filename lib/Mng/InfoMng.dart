@@ -19,14 +19,33 @@ class InfoMng with ChangeNotifier {
     // loadData(db);
   }
 
+  int getCurrentIndex() {
+    return _curIndex;
+  }
+
+  void changeCurrentIndex(int n) {
+    _curIndex += n;
+    if(_curIndex < 0) {
+      _curIndex = getSize();
+    } else if(getSize() < _curIndex) {
+      _curIndex = 0;
+    }
+    notifyListeners();
+  }
+
+  void setIndex(int n) {
+    _curIndex = n;
+    notifyListeners();
+  }
+
   void useMoney(int m) {
     getCurrentData().useMoney(m);
   }
 
   Future<void> insertUsageData(BuildContext context, DataFrame data) async {
+    if(data.getId() == -1) data.setId(1);
     getCurrentData().addList(data.toMap());
     await context.read<DatabaseMng>().insertUsage(data);
-    // log("LIST    _    " + getCurrentData().list.toString());
     notifyListeners();
   }
 
@@ -39,8 +58,24 @@ class InfoMng with ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteInfo(BuildContext context) async {
+    await context.read<DatabaseMng>().deleteInfo(getCurrentData().getId());
+    _info.removeAt(_curIndex);
+    _curIndex = 0;
+    notifyListeners();
+  }
+
+  Future<void> updateInfoData(BuildContext cxt, InfoDataframe info, int idx) async {
+    _info[idx] = info;
+    await cxt.read<DatabaseMng>().updateCard(info.toMapWithoutId(), info.getId());
+    setIndex(idx);
+    notifyListeners();
+  }
+
   void addInfoData(BuildContext cxt, InfoDataframe info) async {
+    info.setId(existData() ? _info[getSize() - 1].getId() + 1 : 1);
     _info.add(info);
+    _curIndex = getSize() - 1;
     await cxt.read<DatabaseMng>().insertCard(info);
     notifyListeners();
   }
@@ -63,6 +98,10 @@ class InfoMng with ChangeNotifier {
   InfoDataframe getCurrentData() {
     return _info[_curIndex];
   }
+
+  int getSize() { return _info.length; }
+
+  bool outOfIndex() { return _info.length - 1 < _curIndex; }
 
   List<Map<String, Object?>> readCurrentData() {
     return getCurrentData().getList();

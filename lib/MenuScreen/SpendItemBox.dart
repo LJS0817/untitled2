@@ -1,32 +1,34 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:untitled2/Dataframes/CustomDataframe.dart';
 import 'package:untitled2/Dataframes/DataFrame.dart';
 import 'package:untitled2/Dataframes/InfoDataframe.dart';
+import 'package:untitled2/Mng/CustomMng.dart';
 import 'package:untitled2/Mng/IconPath.dart';
 import 'package:untitled2/Mng/InfoMng.dart';
+import 'package:untitled2/Provider/Create/CreateCustomProvider.dart';
+import 'package:untitled2/Provider/Create/CreateUsageProvider.dart';
 import 'package:untitled2/ThemeColor.dart';
 import 'package:provider/provider.dart';
 
+import '../Utils/ArgumentConvert.dart';
 import '../Utils/ConvertValue.dart';
 
-class SpendItemBox extends StatelessWidget {
-  int index = 0;
-  late CustomDataframe data;
-
-  Color backgroundColor = Colors.white;
-  Color titleColor = Colors.black;
-  Color subTitleColor = ThemeColor.TextColorGrey;
-  Color costColor = ThemeColor.MainColor;
-
-  final double radius = 20;
-
+class SpendItemBox extends StatefulWidget {
   SpendItemBox(CustomDataframe frame, int idx, {super.key}) {
     index = idx;
     data = frame;
   }
 
-  Widget SpendItemLongTapButton(ICON iName) {
+  int index = 0;
+  bool showMenu = false;
+  late CustomDataframe data;
+
+  final double radius = 20;
+
+  Widget SpendItemLongTapButton(ICON iName, Function callback) {
     return Expanded(
       child: Container(
         height: 65,
@@ -40,7 +42,7 @@ class SpendItemBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(13),
             highlightColor: Colors.white,
             onTap: () {
-              
+              callback();
             },
             child: Container(
               padding: const EdgeInsets.all(20),
@@ -56,13 +58,18 @@ class SpendItemBox extends StatelessWidget {
   }
 
   @override
+  State<SpendItemBox> createState() => _SpendItemBoxState();
+}
+
+class _SpendItemBoxState extends State<SpendItemBox> {
+  @override
   Widget build(BuildContext context) {
     InfoMng info = Provider.of<InfoMng>(context);
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius),
-        color: backgroundColor,
+        borderRadius: BorderRadius.circular(widget.radius),
+        color: widget.showMenu ? ThemeColor.MainColor : Colors.white,
       ),
       child: Stack(
         children: [
@@ -73,22 +80,22 @@ class SpendItemBox extends StatelessWidget {
                 Positioned(
                   top: 5,
                   child: Text(
-                    data.getTitle(),
+                    widget.data.getTitle(),
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
-                      color: titleColor,
+                      color: widget.showMenu ? Colors.white : Colors.black,
                     ),
                   ),
                 ),
                 Positioned(
                   top: 25,
                   child: Text(
-                    data.getDetail(),
+                    widget.data.getDetail(),
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
-                      color: subTitleColor,
+                      color: widget.showMenu ? Colors.white.withOpacity(0.55) : ThemeColor.TextColorGrey,
                     ),
                   ),
                 ),
@@ -103,7 +110,7 @@ class SpendItemBox extends StatelessWidget {
                         borderRadius: BorderRadius.circular(100),
                       ),
                       child: SvgPicture.asset(
-                        IconPath.getPathUsingInt(data.getIconIdx()),
+                        IconPath.getPathUsingInt(widget.data.getIconIdx()),
                         color: ThemeColor.MainColor,
                       ),
                     )
@@ -112,11 +119,11 @@ class SpendItemBox extends StatelessWidget {
                   bottom: 0,
                   right: 0,
                   child: Text(
-                    ConvertValue.costToString(data.getCost()),
+                    ConvertValue.costToString(widget.data.getCost()),
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
-                      color: costColor,
+                      color: widget.showMenu ? Colors.transparent : ThemeColor.MainColor,
                     ),
                   ),
                 ),
@@ -127,34 +134,24 @@ class SpendItemBox extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                borderRadius: BorderRadius.circular(radius),
+                borderRadius: BorderRadius.circular(widget.radius),
                 highlightColor: ThemeColor.MainColor.withOpacity(0.3),
                 splashColor: ThemeColor.MainColor.withOpacity(0.2),
                 onTap: () async {
-                  if(backgroundColor == ThemeColor.MainColor) {
-                    backgroundColor = Colors.white;
-                    titleColor = Colors.black;
-                    subTitleColor = ThemeColor.TextColorGrey;
-                    costColor = ThemeColor.MainColor;
+                  if(widget.showMenu) {
+                    setState(() {
+                      widget.showMenu = false;
+                    });
+                  } else {
+                    await info.insertUsageData(context, DataFrame.convert(widget.data, info.getCurrentData().getId(), info.getCurrentData().useMoney(widget.data.getCost())));
+                    Navigator.of(context).pop();
                   }
-                  await info.insertUsageData(context, DataFrame.convert(data, info.getCurrentData().getId(), info.getCurrentData().useMoney(data.getCost())));
-                  Navigator.of(context).pop();
-                  // info.changeState();
                 },
                 onLongPress: () {
-                  if(backgroundColor == Colors.white) {
-                    backgroundColor = ThemeColor.MainColor;
-                    titleColor = Colors.white;
-                    subTitleColor = Colors.white.withOpacity(0.55);
-                    costColor = Colors.transparent;
-                  }
-                  // } else {
-                  //   backgroundColor = Colors.white;
-                  //   titleColor = Colors.black;
-                  //   subTitleColor = ThemeColor.TextColorGrey;
-                  //   costColor = ThemeColor.MainColor;
-                  // }
-                  info.changeState();
+                  setState(() {
+                    widget.showMenu = true;
+                    info.changeState();
+                  });
                 },
               ),
             ),
@@ -164,12 +161,18 @@ class SpendItemBox extends StatelessWidget {
             right: 10,
             bottom: 10,
             child: Visibility(
-              visible: backgroundColor != Colors.white,
+              visible: widget.showMenu,
               child: Row(
                 children: [
-                  SpendItemLongTapButton(ICON.E_MENU_EDIT),
+                  widget.SpendItemLongTapButton(ICON.E_MENU_EDIT, () {
+                    log(widget.data.toMap().toString());
+                    context.read<CreateUsageProvider>().data = DataFrame.convert(widget.data, info.getCurrentData().getId(), info.getCurrentData().getMoney());
+                    Navigator.pushNamed(context, "/menu/add", arguments: ArgumentConvert("custom_${widget.index}"));
+                  }),
                   const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
-                  SpendItemLongTapButton(ICON.E_MENU_DELETE),
+                  widget.SpendItemLongTapButton(ICON.E_MENU_DELETE, () {
+                    context.read<CustomMng>().deleteCustom(context, widget.data.getId(), widget.index);
+                  }),
                 ],
               ),
             ),

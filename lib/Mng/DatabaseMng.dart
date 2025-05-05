@@ -7,6 +7,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:untitled2/Dataframes/CustomDataframe.dart';
 import 'package:untitled2/Dataframes/DataFrame.dart';
 import 'package:untitled2/Dataframes/InfoDataframe.dart';
+import 'package:untitled2/Utils/DateViewer.dart';
 
 class DatabaseMng with ChangeNotifier {
   Database? db;
@@ -79,11 +80,17 @@ class DatabaseMng with ChangeNotifier {
     return await db!.rawQuery("SELECT * FROM ${_usageTable} WHERE cardID = ${id}");
   }
 
+  Future<int> deleteInfo(int id) async {
+    await removeUsage(id);
+    return await db!.delete(_cardTable, where: 'id=?', whereArgs: [id]);
+  }
+
   Future<int> insertCustom(CustomDataframe data) async {
     return await db!.insert(_customTable, data.toMapWithoutId());
   }
 
   Future<int> updateCustom(CustomDataframe data) async {
+    log("TEST   " + data.toMap().toString());
     return await db!.update(_customTable, data.toMapWithoutId(), where: 'id=?', whereArgs: [data.getId()]);
   }
 
@@ -98,6 +105,10 @@ class DatabaseMng with ChangeNotifier {
   Future<int> insertUsage(DataFrame data) async {
     return await db!.insert(_usageTable, data.toMapWithoutId());
   }
+
+  Future<int> removeUsage(int cId) async {
+    return await db!.delete(_usageTable, where: 'cardID=?', whereArgs: [cId]);
+  }
   
   Future<DataFrame> deleteUsage(DataFrame data, int cid, int cur, int newId) async {
     await updateCard({'current' : cur + data.getCost()}, cid);
@@ -106,6 +117,7 @@ class DatabaseMng with ChangeNotifier {
     data.setRemoved(2);
     data.setRemain(cur + data.getCost());
     data.setId(newId);
+    data.setDate(DateViewer.getDate());
     await insertUsage(data);
     return data;
   }

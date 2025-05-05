@@ -43,6 +43,7 @@ class DataFrame with ChangeNotifier {
 
   DataFrame.convert(CustomDataframe data, int cId, int re) {
     _date = DateViewer.getDate();
+    _id = data.getId();
     _title = data.getTitle();
     _cardID = cId;
     _detail = data.getDetail();

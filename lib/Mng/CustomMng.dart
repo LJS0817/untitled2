@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -15,12 +17,15 @@ class CustomMng extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateCustom(BuildContext cxt, CustomDataframe data) async {
+  void updateCustom(BuildContext cxt, CustomDataframe data, int idx) async {
+    log(data.toMap().toString());
+    _set[idx] = data;
     await cxt.read<DatabaseMng>().updateCustom(data);
     notifyListeners();
   }
 
-  void deleteCustom(BuildContext cxt, int id) async {
+  void deleteCustom(BuildContext cxt, int id, int index) async {
+    _set.removeAt(index);
     await cxt.read<DatabaseMng>().deleteCustom(id);
     notifyListeners();
   }
@@ -34,7 +39,6 @@ class CustomMng extends ChangeNotifier {
     for(int i = 0; i < data.length; i++) {
       _set.add(CustomDataframe.init(data[i]));
     }
-
     _started = true;
     return true;
   }

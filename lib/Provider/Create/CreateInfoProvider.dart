@@ -6,6 +6,7 @@ import 'package:untitled2/Mng/InfoMng.dart';
 
 class CreateInfoProvider extends ChangeNotifier {
   InfoDataframe _data = InfoDataframe();
+  int index = -1;
 
   void setInfo(String key, String value) {
     switch(key) {
@@ -29,6 +30,8 @@ class CreateInfoProvider extends ChangeNotifier {
 
   String getInfo(String key) {
     switch(key) {
+      case "id" :
+        return _data.getId().toString();
       case "name" :
         return _data.getName();
       case 'current' :
@@ -43,9 +46,21 @@ class CreateInfoProvider extends ChangeNotifier {
   }
 
   void saveData(BuildContext context) {
-    InfoMng mng = context.read<InfoMng>();
-    mng.addInfoData(context, _data);
-    notifyListeners();
+    context.read<InfoMng>().addInfoData(context, _data);
+  }
+
+  void updateData(BuildContext context) {
+    context.read<InfoMng>().updateInfoData(context, _data, index);
+  }
+
+  void setData(InfoDataframe d, int idx) {
+    _data = d.clone();
+    index = idx;
+  }
+
+  void clear() {
+    index = -1;
+    _data = InfoDataframe();
   }
 
   @override

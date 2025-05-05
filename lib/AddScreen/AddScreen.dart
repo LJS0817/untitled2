@@ -11,6 +11,7 @@ import 'package:untitled2/Provider/Create/CreateUsageProvider.dart';
 import 'package:untitled2/StartWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled2/Utils/ArgumentConvert.dart';
+import 'package:untitled2/Utils/ConvertValue.dart';
 
 import '../Mng/InfoMng.dart';
 
@@ -121,21 +122,23 @@ class AddScreen extends StatelessWidget {
                 ),
                 CustomNavigationBar(
                       () => {
-                        FocusManager.instance.primaryFocus?.unfocus(),
-                        data.clear(context.read<InfoMng>().getCurrentData().getId()),
-                        Navigator.pop(context)
-                      },
+                    FocusManager.instance.primaryFocus?.unfocus(),
+                    data.clear(context.read<InfoMng>().getCurrentData().getId()),
+                    Navigator.pop(context)
+                    },
                       () => {
-                        FocusManager.instance.primaryFocus?.unfocus(),
+                    FocusManager.instance.primaryFocus?.unfocus(),
 
-                        if(flag.flag == "usage") {
-                          data.saveData(context), context.read<InfoMng>().useMoney(int.parse(data.getData('cost'))),
-                          data.clear(context.read<InfoMng>().getCurrentData().getId()),
-                          if(context.mounted) Navigator.of(context)..pop()..pop(),},
-                        if(flag.flag == "custom") {
-                          context.read<CustomMng>().insertCustom(context, CustomDataframe.init2(data.data.toMapWithoutId())),
-                          Navigator.of(context).pop()},
-                      },
+                    if(flag.flag == "usage") {
+                      data.saveData(context), context.read<InfoMng>().useMoney(int.parse(data.getData('cost'))),
+                      data.clear(context.read<InfoMng>().getCurrentData().getId()),
+                      if(context.mounted) Navigator.of(context)..pop()..pop(),},
+                    if(flag.flag.contains("custom")) {
+                      if(!flag.flag.contains('_')) { context.read<CustomMng>().insertCustom(context, CustomDataframe.init2(data.data.toMap())), }
+                      else { context.read<CustomMng>().updateCustom(context, CustomDataframe.init(data.data.toMap()), ConvertValue.toInt(flag.flag.replaceAll('custom_', ''))), },
+                      Navigator.of(context).pop()
+                    },
+                  },
                 ),
               ],
             ),

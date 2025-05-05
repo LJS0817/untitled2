@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled2/MainScreen/Card/AddCardContainer.dart';
+import 'package:untitled2/MainScreen/Card/AddCardMiniIcon.dart';
+import 'package:untitled2/MainScreen/Card/CardMiniDot.dart';
 import 'package:untitled2/MainScreen/CreateCard/CreateCard.dart';
 import 'package:untitled2/MainScreen/SpendList.dart';
 import 'package:untitled2/Mng/DatabaseMng.dart';
@@ -18,29 +21,27 @@ class MainScreen extends StatelessWidget {
         child: FutureBuilder(
           future: info.loadData(context),
           builder: (cxt, snap) {
-            if(snap.hasData && info.existData()) {
+            if(snap.hasData && info.existData() && info.getCurrentIndex() > -1) {
               // log("TEST    +   " + snap.data!.toMap().toString());
               return Container(
                 color: Colors.white,
                 child: Column(
                   children: [
-                    TitleCard(),
+                    info.outOfIndex() ? AddCardContainer() : TitleCard(),
+                    SizedBox(
+                      height: 8,
+                      width: double.maxFinite,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(info.getSize() + 1, (index) => index > info.getSize() - 1 ? AddCardMiniIcon(info.getCurrentIndex() == index) : CardMiniDot(info.getCurrentIndex() == index)),
+                      ),
+                    ),
                     SpendList(),
                   ],
                 ),
               );
             } else {
-              return GestureDetector(
-                onTap: () {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                  log("OUT");
-                },
-                child: Container(
-                  color: Colors.white,
-                  height: double.maxFinite,
-                  child: CreateCard(),
-                ),
-              );
+              return CreateCard();
             }
           },
         )

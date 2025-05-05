@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CustomMng(), lazy: false,),
         ChangeNotifierProvider(create: (_) => CreateInfoProvider()),
         ChangeNotifierProvider(create: (_) => CreateUsageProvider()),
-        ChangeNotifierProvider(create: (_) => CreateCustomProvider()),
+        // ChangeNotifierProvider(create: (_) => CreateCustomProvider()),
       ],
       child: MaterialApp(
         title: "test",
