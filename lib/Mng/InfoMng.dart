@@ -46,6 +46,7 @@ class InfoMng with ChangeNotifier {
     if(data.getId() == -1) data.setId(1);
     getCurrentData().addList(data.toMap());
     await context.read<DatabaseMng>().insertUsage(data);
+    await context.read<DatabaseMng>().updateCard({'current' : getCurrentData().getMoney()}, getCurrentData().getId());
     notifyListeners();
   }
 

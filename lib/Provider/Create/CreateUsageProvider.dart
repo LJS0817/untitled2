@@ -23,7 +23,6 @@ class CreateUsageProvider extends ChangeNotifier {
     InfoDataframe info = Provider.of<InfoMng>(context, listen: false).getCurrentData();
     if(info.getList().length > 1) data.setId(ConvertValue.toInt(info.getList()[info.getList().length - 1]['id']) + 1);
     await context.read<InfoMng>().insertUsageData(context, data);
-    await context.read<DatabaseMng>().updateCard({'current' : info.getMoney()}, info.getId());
   }
 
   void setData(String sKey, String value) {
