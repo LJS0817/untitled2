@@ -65,6 +65,10 @@ class DatabaseMng with ChangeNotifier {
     return await db!.rawQuery("SELECT * FROM $_customTable");
   }
 
+  Future<List<Map<String, Object?>>> getConfig() async {
+    return await db!.rawQuery("SELECT * FROM $_configTable");
+  }
+
 
   Future<List<Map<String, Object?>>> getInfo({int id = -1}) async {
     await init();
