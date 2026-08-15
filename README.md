@@ -43,7 +43,7 @@
 
 ### 🚨 SQLite 비동기 초기화에 따른 Race Condition 이슈
 - **Problem:** 
-  프로젝트 초기, `DatabaseMng` 클래스의 `init()` 메서드를 각 데이터 조회 함수(`getInfo()`, `getCustom()` 등)에서 **지연 초기화(Lazy Initialization)** 방식으로 호출하도록 구현했습니다. 
+  **AI 도구의 도움 없이 혼자서 기획부터 개발까지 전담하여 진행하던 중**, 프로젝트 초기 `DatabaseMng` 클래스의 `init()` 메서드를 각 데이터 조회 함수(`getInfo()`, `getCustom()` 등)에서 **지연 초기화(Lazy Initialization)** 방식으로 호출하도록 구현했습니다. 
   하지만 Flutter의 비동기(`async/await`) 특성상, 앱 구동 시 여러 위젯이 동시에 렌더링되며 DB 접근을 시도할 때 `db` 객체가 아직 `null`인 상태에서 `openDatabase`가 중복 호출되는 동시성(Race Condition) 문제가 발생했습니다. 이로 인해 초기 데이터가 Null로 처리되어 에러가 나거나 화면이 멈추는 간헐적 이슈가 있었습니다.
 
 - **Solution:** 
